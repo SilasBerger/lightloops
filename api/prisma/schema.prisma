@@ -1,0 +1,57 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions", "views", "relationJoins"]
+}
+
+generator docs {
+  provider = "node node_modules/prisma-docs-generator"
+  output   = "../docs/prisma"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [pg_trgm, pgcrypto]
+}
+
+model Device {
+    id String @id @db.Uuid
+    name String @unique
+    description String?
+    deviceProfiles DeviceProfile[]
+    @@map("devices")
+}
+
+model Profile {
+    id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    name String @unique
+    description String?
+    deviceProfile DeviceProfile[]
+    @@map("profiles")
+}
+
+model LedChoreo {
+    id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    name String @unique
+    description String?
+    type String
+    data Json
+    deviceProfiles DeviceProfile[]
+    @@map("led_choreos")
+}
+
+model DeviceProfile {
+    id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    deviceId String @map("device_id") @db.Uuid
+    profileId String @map("profile_id") @db.Uuid
+    deviceName String? @map("device_name")
+    ledChoreoId String? @map("led_choreo_id") @db.Uuid
+    device Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+    profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    ledChoreo LedChoreo? @relation(fields: [ledChoreoId], references: [id], onDelete: SetNull)
+    @@unique([deviceId, profileId])
+}

@@ -1,0 +1,47 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table devices {
+  id String [pk]
+  name String [unique, not null]
+  description String
+  deviceProfiles DeviceProfile [not null]
+}
+
+Table profiles {
+  id String [pk]
+  name String [unique, not null]
+  description String
+  deviceProfile DeviceProfile [not null]
+}
+
+Table led_choreos {
+  id String [pk]
+  name String [unique, not null]
+  description String
+  type String [not null]
+  data Json [not null]
+  deviceProfiles DeviceProfile [not null]
+}
+
+Table DeviceProfile {
+  id String [pk]
+  deviceId String [not null]
+  profileId String [not null]
+  deviceName String
+  ledChoreoId String
+  device devices [not null]
+  profile profiles [not null]
+  ledChoreo led_choreos
+
+  indexes {
+    (deviceId, profileId) [unique]
+  }
+}
+
+Ref: DeviceProfile.deviceId > devices.id [delete: Cascade]
+
+Ref: DeviceProfile.profileId > profiles.id [delete: Cascade]
+
+Ref: DeviceProfile.ledChoreoId > led_choreos.id [delete: Set Null]
