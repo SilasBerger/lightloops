@@ -3,3 +3,5 @@ node_modules
 
 api/docs/prisma/**/*
 api/docs/*.svg
+
+dist
