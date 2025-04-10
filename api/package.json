@@ -1,33 +1,36 @@
 {
-  "name": "lightloops-api",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "Silas Berger",
-  "license": "CC-BY-NC-SA-4.0",
-  "scripts": {
-    "db:migrate": "yarn prisma migrate deploy",
-    "db:migrate:dev": "yarn prisma migrate dev",
-    "db:seed": "yarn prisma db seed",
-    "db:reset": "dotenv -- ts-node prisma/reset.ts",
-    "db:recreate": "yarn run db:reset && yarn run db:migrate && yarn run db:seed"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.1",
-    "dotenv-cli": "^8.0.0",
-    "nodemon": "^3.1.9",
-    "prisma-dbml-generator": "^0.12.0",
-    "prisma-docs-generator": "^0.8.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
-  },
-  "dependencies": {
-    "@prisma/client": "6.6.0",
-    "express": "^5.1.0",
-    "prisma": "^6.6.0"
-  },
-  "prisma": {
-    "schema": "./prisma/schema.prisma",
-    "seed": "dotenv -- ts-node prisma/seed.ts",
-    "reset": "dotenv -- ts-node prisma/reset.ts"
-  }
+    "name": "lightloops-api",
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "Silas Berger",
+    "license": "CC-BY-NC-SA-4.0",
+    "scripts": {
+        "db:migrate": "yarn prisma migrate deploy",
+        "db:migrate:dev": "yarn prisma migrate dev",
+        "db:seed": "yarn prisma db seed",
+        "db:reset": "dotenv -- ts-node prisma/reset.ts",
+        "db:recreate": "yarn run db:reset && yarn run db:migrate && yarn run db:seed",
+        "format": "prettier --write . && yarn prisma format",
+        "format:check": "prettier --check ."
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.1",
+        "dotenv-cli": "^8.0.0",
+        "nodemon": "^3.1.9",
+        "prettier": "^3.5.3",
+        "prisma-dbml-generator": "^0.12.0",
+        "prisma-docs-generator": "^0.8.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3"
+    },
+    "dependencies": {
+        "@prisma/client": "6.6.0",
+        "express": "^5.1.0",
+        "prisma": "^6.6.0"
+    },
+    "prisma": {
+        "schema": "./prisma/schema.prisma",
+        "seed": "dotenv -- ts-node prisma/seed.ts",
+        "reset": "dotenv -- ts-node prisma/reset.ts"
+    }
 }

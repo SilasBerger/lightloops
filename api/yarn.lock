@@ -2340,6 +2340,11 @@ pluralize@^8.0.0:
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
   integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
+prettier@^3.5.3:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.5.3.tgz#4fc2ce0d657e7a02e602549f053b239cb7dfe1b5"
+  integrity sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==
+
 prisma-dbml-generator@^0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/prisma-dbml-generator/-/prisma-dbml-generator-0.12.0.tgz#97668e4a3cb4d8e0a4099c8fef97787723c5c9a9"
