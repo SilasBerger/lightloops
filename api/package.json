@@ -1,0 +1,24 @@
+{
+  "name": "lightloops-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Silas Berger",
+  "license": "MIT",
+  "scripts": {
+    "db:migrate": "yarn prisma migrate deploy",
+    "db:migrate:dev": "yarn prisma migrate dev"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^8.0.0",
+    "nodemon": "^3.1.9",
+    "prisma-dbml-generator": "^0.12.0",
+    "prisma-docs-generator": "^0.8.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@prisma/client": "6.6.0",
+    "express": "^5.1.0",
+    "prisma": "^6.6.0"
+  }
+}
