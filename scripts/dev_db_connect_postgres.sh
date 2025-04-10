@@ -1,0 +1,1 @@
+docker container exec -it lightloops-postgres-1 psql -U postgres postgres
