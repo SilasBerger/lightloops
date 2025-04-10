@@ -7,10 +7,13 @@ Colorful tinywhoop loops.
 - Run `yarn install`.
 - Run `docker compose -f dev_services.compose.yml up -d` to set up dev services.
 - Run `yarn db:migrate` to run pending migrations, generate the client code, and create the db if it doesn't yet exist.
+- Run `yarn run db:seed` to seed the database.
 
 ### Commands & scripts
 - `yarn db:migrate:dev`: Create a new db migration from changes in `schema.prisma`.
 - `yarn db:migrate`: Apply pending migrations to the db (and create the db if it doesn't yet exist).
+- `yarn run db:reset`: Clear out the database without seeding it.
+- `yarn run db:recreate`: Clear out the db and re-seed it.
 - `scripts/dev_db_connect_postgres.sh`: Connect to dev DB `postgres` as user `postgres`.
 - `scripts/dev_db_connect_lightloops_api.sh`: Connect to dev DB `lightloops_api` as user `lightloops_api`.
 - `scripts/purge_dev_services.sh`: Delete dev services containers and volumes.
