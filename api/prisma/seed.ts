@@ -6,7 +6,7 @@ console.log('Seeding database...');
 async function main() {
     const devices = await prisma.device.createMany({
         data: devicesInput,
-    })
+    });
 }
 
 main()

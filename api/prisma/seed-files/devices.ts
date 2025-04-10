@@ -16,8 +16,8 @@ const devices: Prisma.DeviceCreateInput[] = [
     {
         id: ARCA_LOOP_1_DEVICE_ID,
         name: 'Arca Loop 1',
-        description: 'Loop mounted to GorillaPod'
-    }
+        description: 'Loop mounted to GorillaPod',
+    },
 ];
 
 export { devices };
