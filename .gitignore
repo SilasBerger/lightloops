@@ -5,3 +5,5 @@ api/docs/prisma/**/*
 api/docs/*.svg
 
 dist
+
+scratch

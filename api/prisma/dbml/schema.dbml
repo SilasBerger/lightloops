@@ -6,14 +6,14 @@ Table devices {
   id String [pk]
   name String [unique, not null]
   description String
-  deviceProfiles DeviceProfile [not null]
+  deviceProfiles device_profiles [not null]
 }
 
 Table profiles {
   id String [pk]
   name String [unique, not null]
   description String
-  deviceProfile DeviceProfile [not null]
+  deviceProfile device_profiles [not null]
 }
 
 Table led_choreos {
@@ -22,10 +22,10 @@ Table led_choreos {
   description String
   type String [not null]
   data Json [not null]
-  deviceProfiles DeviceProfile [not null]
+  deviceProfiles device_profiles [not null]
 }
 
-Table DeviceProfile {
+Table device_profiles {
   id String [pk]
   deviceId String [not null]
   profileId String [not null]
@@ -40,8 +40,8 @@ Table DeviceProfile {
   }
 }
 
-Ref: DeviceProfile.deviceId > devices.id [delete: Cascade]
+Ref: device_profiles.deviceId > devices.id [delete: Cascade]
 
-Ref: DeviceProfile.profileId > profiles.id [delete: Cascade]
+Ref: device_profiles.profileId > profiles.id [delete: Cascade]
 
-Ref: DeviceProfile.ledChoreoId > led_choreos.id [delete: Set Null]
+Ref: device_profiles.ledChoreoId > led_choreos.id [delete: Set Null]

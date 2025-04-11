@@ -1,11 +1,11 @@
 import { Prisma } from '@prisma/client';
 
-const STATIC_PINK_CHOREO_ID = 'fe7b48c0-d262-4cc9-a76c-a15101ba6ff6';
-const GREEN_SINGLE_RUNNING_CHOREO_ID = '83de2318-1c29-4208-b9da-4bb39ac93da7';
-const MULTI_RUNNING_CHOREO_ID = '16b52c8d-7854-4efd-81c3-93a91ab73ecf';
-const COLOR_CYCLE_CHOREO_ID = '4e2caf60-fa50-47ad-a909-6a8bf99860b3';
-const MULTI_FLASHING_CHOREO_ID = '16128477-e940-4e11-a029-b999e32326cc';
-const SPLIT_MULTI_CHOREO_ID = 'f2fa8972-83ca-48f9-aa8f-aa13c6739288';
+export const STATIC_PINK_CHOREO_ID = 'fe7b48c0-d262-4cc9-a76c-a15101ba6ff6';
+export const GREEN_SINGLE_RUNNING_CHOREO_ID = '83de2318-1c29-4208-b9da-4bb39ac93da7';
+export const MULTI_RUNNING_CHOREO_ID = '16b52c8d-7854-4efd-81c3-93a91ab73ecf';
+export const COLOR_CYCLE_CHOREO_ID = '4e2caf60-fa50-47ad-a909-6a8bf99860b3';
+export const MULTI_FLASHING_CHOREO_ID = '16128477-e940-4e11-a029-b999e32326cc';
+export const SPLIT_MULTI_CHOREO_ID = 'f2fa8972-83ca-48f9-aa8f-aa13c6739288';
 
 const ledChoreos: Prisma.LedChoreoCreateInput[] = [
     {

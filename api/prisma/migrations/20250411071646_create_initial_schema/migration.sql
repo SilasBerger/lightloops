@@ -34,14 +34,14 @@ CREATE TABLE "led_choreos" (
 );
 
 -- CreateTable
-CREATE TABLE "DeviceProfile" (
+CREATE TABLE "device_profiles" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "device_id" UUID NOT NULL,
     "profile_id" UUID NOT NULL,
     "device_name" TEXT,
     "led_choreo_id" UUID,
 
-    CONSTRAINT "DeviceProfile_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "device_profiles_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -54,13 +54,13 @@ CREATE UNIQUE INDEX "profiles_name_key" ON "profiles"("name");
 CREATE UNIQUE INDEX "led_choreos_name_key" ON "led_choreos"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "DeviceProfile_device_id_profile_id_key" ON "DeviceProfile"("device_id", "profile_id");
+CREATE UNIQUE INDEX "device_profiles_device_id_profile_id_key" ON "device_profiles"("device_id", "profile_id");
 
 -- AddForeignKey
-ALTER TABLE "DeviceProfile" ADD CONSTRAINT "DeviceProfile_device_id_fkey" FOREIGN KEY ("device_id") REFERENCES "devices"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "device_profiles" ADD CONSTRAINT "device_profiles_device_id_fkey" FOREIGN KEY ("device_id") REFERENCES "devices"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "DeviceProfile" ADD CONSTRAINT "DeviceProfile_profile_id_fkey" FOREIGN KEY ("profile_id") REFERENCES "profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "device_profiles" ADD CONSTRAINT "device_profiles_profile_id_fkey" FOREIGN KEY ("profile_id") REFERENCES "profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "DeviceProfile" ADD CONSTRAINT "DeviceProfile_led_choreo_id_fkey" FOREIGN KEY ("led_choreo_id") REFERENCES "led_choreos"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "device_profiles" ADD CONSTRAINT "device_profiles_led_choreo_id_fkey" FOREIGN KEY ("led_choreo_id") REFERENCES "led_choreos"("id") ON DELETE SET NULL ON UPDATE CASCADE;

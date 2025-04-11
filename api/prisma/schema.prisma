@@ -58,4 +58,5 @@ model DeviceProfile {
   ledChoreo   LedChoreo? @relation(fields: [ledChoreoId], references: [id], onDelete: SetNull)
 
   @@unique([deviceId, profileId])
+  @@map("device_profiles")
 }
