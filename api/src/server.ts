@@ -2,9 +2,12 @@ import app from './app';
 import Logger from './utils/logger';
 import http from 'http';
 import { Server as SocketIOServer } from 'socket.io';
-import expressWs from 'express-ws';
+import expressWs, { Application } from 'express-ws';
 
 const PORT = process.env.PORT || 3002;
+const APP_URI = new URL(process.env.APP_DOMAIN || `http://localhost`);
+APP_URI.port = `${PORT}`;
+const WS_URI = `ws://${APP_URI.host}/ws`;
 const server = http.createServer(app);
 
 // Initialize express-ws for raw WebSocket support
@@ -32,14 +35,11 @@ io.on('connection', (socket) => {
     });
 });
 
-// TODO: Fix typing.
-(app as any).ws('/ws', (ws: any, req: any) => {
+(app as unknown as Application).ws('/ws', (ws, req) => {
     Logger.info('New WebSocket connection established');
 
-    ws.on('message', (message: any) => {
+    ws.on('message', (message) => {
         Logger.info({event: 'Raw WebSocket message', data: message});
-        
-        // Echo message back to client
         ws.send(`Server received: ${message}`);
     });
 
@@ -51,6 +51,6 @@ io.on('connection', (socket) => {
 server.listen(PORT, () => {
     Logger.info(`Application is running at: http://localhost:${PORT}.`);
     Logger.info(`WebSocket endpoints:`);
-    Logger.info(`- WebUI: http://localhost:${PORT} (Socket.io)`);
-    Logger.info(`- Devices: ws://localhost:${PORT}/ws`); // TODO: Factor out path.
+    Logger.info(`- WebUI: ${APP_URI} (Socket.io)`);
+    Logger.info(`- Devices: ${WS_URI}`);
 });
