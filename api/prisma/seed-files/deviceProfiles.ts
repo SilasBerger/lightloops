@@ -56,6 +56,7 @@ const deviceProfiles: Prisma.DeviceProfileCreateInput[] = [
     },
     {
         id: '9b9c3ec2-34b9-4e34-86cb-ab28699041cf',
+        deviceName: 'Start gate',
         device: {
             connect: {
                 id: CLAMPED_LOOP_1_DEVICE_ID,
@@ -74,6 +75,7 @@ const deviceProfiles: Prisma.DeviceProfileCreateInput[] = [
     },
     {
         id: '5168dc7b-3072-4050-af9f-8cd5724c237f',
+        deviceName: 'Turn 1',
         device: {
             connect: {
                 id: CLAMPED_LOOP_2_DEVICE_ID,
@@ -92,6 +94,7 @@ const deviceProfiles: Prisma.DeviceProfileCreateInput[] = [
     },
     {
         id: '2219097a-68fe-4926-92cd-fe586034620e',
+        deviceName: 'Finish line',
         device: {
             connect: {
                 id: ARCA_LOOP_1_DEVICE_ID,
