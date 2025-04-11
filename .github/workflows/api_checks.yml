@@ -9,7 +9,7 @@ defaults:
     working-directory: ./api
 
 jobs: 
-  prettier-check:
+  checks:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +21,7 @@ jobs:
         with:
           node-version: 18.18
           cache: 'yarn'
+          cache-dependency-path: ./api/yarn.lock
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
