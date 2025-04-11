@@ -1,0 +1,28 @@
+name: API checks
+
+on: 
+  pull_request:
+  push:
+
+defaults:
+  run:
+    working-directory: ./api
+
+jobs: 
+  prettier-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run Prettier check
+        run: yarn run format:check
