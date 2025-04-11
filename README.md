@@ -1,6 +1,9 @@
 # LightLoops
 Colorful tinywhoop loops.
 
+## TODO
+- Some LED choreos should be created upon server startup if they don't yet exist, such as single running light, etc. Need to establish logic for that.
+
 ## Usage
 ### Setup
 - Run `nvm use`.
