@@ -27,4 +27,28 @@ app.get(`${API_URL}/devices`, async (req, res) => {
     res.json(devices);
 });
 
+app.get(`${API_URL}/race_course_devices`, async (req, res) => {
+    const devices = await prisma.profile.findMany({
+        where: {
+            id: 'ab251f54-0284-4730-b8ed-8b7a4dabfffe', // Race course.
+        },
+        include: {
+            deviceProfile: {
+                select: {
+                    id: true,
+                    deviceName: true,
+                    ledChoreo: {
+                        omit: {
+                            data: true,
+                        }
+                    },
+                    device: true,
+                },
+            },
+        },
+    });
+
+    res.json(devices);
+});
+
 export default app;
