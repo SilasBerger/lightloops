@@ -1,7 +1,7 @@
 ### Find all devices.
 GET http://localhost:3002/api/v1/devices
 
-### Create a new device
+### Create a new device.
 POST http://localhost:3002/api/v1/device
 content-type: application/json
 
