@@ -7,3 +7,5 @@ api/docs/*.svg
 dist
 
 scratch
+
+venv
