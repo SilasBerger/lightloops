@@ -7,6 +7,16 @@ const extractUpdateData = createDataExtractor<Prisma.DeviceUncheckedUpdateInput>
 
 function Device(db: PrismaClient['device']) {
     return Object.assign(db, {
+        async createModel(id: string, name: string, description?: string): Promise<DbDevice> {
+            return db.create({
+                data: {
+                    id: id,
+                    name: name,
+                    description: description,
+                },
+            });
+        },
+
         async findModel(id: string): Promise<DbDevice | null> {
             const model = await db.findUnique({
                 where: {
@@ -39,10 +49,10 @@ function Device(db: PrismaClient['device']) {
             if (!record) {
                 throw new HTTP404Error(`Cannot delete device with id ${id}: No such device.`);
             }
-            
-            const deletedRecord = await db.delete({where: {id: id}});
+
+            const deletedRecord = await db.delete({ where: { id: id } });
             return record;
-        }
+        },
     });
 }
 

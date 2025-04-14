@@ -1,6 +1,16 @@
 import { RequestHandler } from 'express';
 import Device from '../models/Device';
 
+export const create: RequestHandler = async (req, res, next) => {
+    const { id, name, description } = req.body;
+    try {
+        const device = await Device.createModel(id, name, description);
+        res.json(device);
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const find: RequestHandler = async (req, res, next) => {
     try {
         const device = await Device.findModel(req.params.id);
@@ -8,25 +18,25 @@ export const find: RequestHandler = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+};
 
-export const update: RequestHandler = async (req, res, next) => { 
+export const update: RequestHandler = async (req, res, next) => {
     try {
         const model = await Device.updateModel(req.params.id, req.body);
         res.json(model);
     } catch (error) {
         next(error);
-    } 
-}
+    }
+};
 
-export const remove: RequestHandler = async(req, res, next) => {
+export const remove: RequestHandler = async (req, res, next) => {
     try {
         const removedModel = await Device.remove(req.params.id);
-        res.json(removedModel)
+        res.json(removedModel);
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
 
 export const all: RequestHandler = async (req, res, next) => {
     try {

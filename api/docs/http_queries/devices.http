@@ -1,11 +1,21 @@
 ### Find all devices.
 GET http://localhost:3002/api/v1/devices
 
+### Create a new device
+POST http://localhost:3002/api/v1/device
+content-type: application/json
+
+{
+    "id": "3c2c7960-afef-4836-9a15-8312b3cfaa84",
+    "name": "Demo device",
+    "description": "Demo device created with REST client."
+}
+
 ### Find a specific device.
-GET http://localhost:3002/api/v1/device/205e8dce-13f7-49ef-9c61-e612b3cc80b6
+GET http://localhost:3002/api/v1/device/3c2c7960-afef-4836-9a15-8312b3cfaa84
 
 ### Update a device.
-PUT http://localhost:3002/api/v1/device/205e8dce-13f7-49ef-9c61-e612b3cc80b6
+PUT http://localhost:3002/api/v1/device/3c2c7960-afef-4836-9a15-8312b3cfaa84
 content-type: application/json
 
 {
@@ -13,4 +23,4 @@ content-type: application/json
 }
 
 ### Delete a device.
-DELETE http://localhost:3002/api/v1/device/bc9b7899-05e6-44e4-8613-a9b20ad6d558
+DELETE http://localhost:3002/api/v1/device/3c2c7960-afef-4836-9a15-8312b3cfaa84
