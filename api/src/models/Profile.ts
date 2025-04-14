@@ -1,23 +1,22 @@
-import { Prisma, PrismaClient, Device as DbDevice } from '@prisma/client';
+import { Prisma, PrismaClient, Profile as DbProfile } from '@prisma/client';
 import prisma from '../prisma';
 import { HTTP404Error } from '../utils/errors/Errors';
 import { createDataExtractor } from '../helpers/dataExtractor';
 
-const extractUpdateData = createDataExtractor<Prisma.DeviceUncheckedUpdateInput>(['name', 'description']);
+const extractUpdateData = createDataExtractor<Prisma.ProfileUncheckedUpdateInput>(['name', 'description']);
 
-function Device(db: PrismaClient['device']) {
+function Profile(db: PrismaClient['profile']) {
     return Object.assign(db, {
-        async createModel(id: string, name: string, description?: string): Promise<DbDevice> {
+        async createModel(name: string, description?: string): Promise<DbProfile> {
             return db.create({
                 data: {
-                    id: id,
                     name: name,
                     description: description,
                 },
             });
         },
 
-        async findModel(id: string): Promise<DbDevice | null> {
+        async findModel(id: string): Promise<DbProfile | null> {
             const model = await db.findUnique({
                 where: {
                     id: id,
@@ -26,10 +25,10 @@ function Device(db: PrismaClient['device']) {
             return model;
         },
 
-        async updateModel(id: string, data: Partial<DbDevice>): Promise<DbDevice> {
+        async updateModel(id: string, data: Partial<DbProfile>): Promise<DbProfile> {
             const record = await db.findUnique({ where: { id: id } });
             if (!record) {
-                throw new HTTP404Error(`Cannot update device with id ${id}: No such device.`);
+                throw new HTTP404Error(`Cannot update profile with id ${id}: No such profile.`);
             }
             const sanitized = extractUpdateData(data, false);
             return db.update({
@@ -40,14 +39,14 @@ function Device(db: PrismaClient['device']) {
             });
         },
 
-        async all(): Promise<DbDevice[]> {
+        async all(): Promise<DbProfile[]> {
             return db.findMany({});
         },
 
-        async remove(id: string): Promise<DbDevice> {
+        async remove(id: string): Promise<DbProfile> {
             const record = await db.findUnique({ where: { id: id } });
             if (!record) {
-                throw new HTTP404Error(`Cannot delete device with id ${id}: No such device.`);
+                throw new HTTP404Error(`Cannot delete profile with id ${id}: No such profile.`);
             }
 
             const deletedRecord = await db.delete({ where: { id: id } });
@@ -56,4 +55,4 @@ function Device(db: PrismaClient['device']) {
     });
 }
 
-export default Device(prisma.device);
+export default Profile(prisma.profile);

@@ -1,0 +1,25 @@
+### Find all profiles.
+GET http://localhost:3002/api/v1/profiles
+
+### Create a new profile.
+POST http://localhost:3002/api/v1/profile
+content-type: application/json
+
+{
+    "name": "Demo profile",
+    "description": "Demo profile created with REST client."
+}
+
+### Find a specific profile.
+GET http://localhost:3002/api/v1/profile/1c94cbb5-378a-47af-be9d-21867ee6a0ba
+
+### Update a profile.
+PUT http://localhost:3002/api/v1/profile/1c94cbb5-378a-47af-be9d-21867ee6a0ba
+content-type: application/json
+
+{
+    "name": "The new profile name"
+}
+
+### Delete a profile.
+DELETE http://localhost:3002/api/v1/profile/1c94cbb5-378a-47af-be9d-21867ee6a0ba
