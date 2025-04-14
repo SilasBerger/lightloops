@@ -1,5 +1,5 @@
-import { RequestHandler } from "express";
-import Device from "../models/Device";
+import { RequestHandler } from 'express';
+import Device from '../models/Device';
 
 export const all: RequestHandler = async (req, res, next) => {
     try {

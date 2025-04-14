@@ -11,14 +11,14 @@ const WS_URI = `ws://${APP_URI.host}/ws`;
 const server = http.createServer(app);
 
 // Initialize express-ws for raw WebSocket support
-expressWs(app, server);  // Initialize express-ws
+expressWs(app, server); // Initialize express-ws
 
 const io = new SocketIOServer(server, {
     cors: {
         // TODO: Duplicate – factor out.
         origin: process.env.FRONTEND_URL ?? '*',
-        methods: ["GET", "POST"]
-    }
+        methods: ['GET', 'POST'],
+    },
 });
 
 io.on('connection', (socket) => {
@@ -26,8 +26,8 @@ io.on('connection', (socket) => {
     Logger.info(`WebUI connected: ${socket.id}`);
 
     // TODO: Remove this.
-    socket.on('message', (message) =>  {
-        Logger.info({event: 'Socket.io message', data: message});
+    socket.on('message', (message) => {
+        Logger.info({ event: 'Socket.io message', data: message });
     });
 
     socket.on('disconnect', () => {
@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
     Logger.info('New WebSocket connection established');
 
     ws.on('message', (message) => {
-        Logger.info({event: 'Raw WebSocket message', data: message});
+        Logger.info({ event: 'Raw WebSocket message', data: message });
         ws.send(`Server received: ${message}`);
     });
 

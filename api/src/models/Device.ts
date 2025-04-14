@@ -1,7 +1,7 @@
-import { Prisma, PrismaClient, Device as DbDevice } from "@prisma/client";
+import { Prisma, PrismaClient, Device as DbDevice } from '@prisma/client';
 import prisma from '../prisma';
-import { HTTP404Error } from "../utils/errors/Errors";
-import { createDataExtractor } from "../helpers/dataExtractor";
+import { HTTP404Error } from '../utils/errors/Errors';
+import { createDataExtractor } from '../helpers/dataExtractor';
 
 const extractUpdateData = createDataExtractor<Prisma.DeviceUncheckedUpdateInput>(['name', 'description']);
 
@@ -10,8 +10,8 @@ function Device(db: PrismaClient['device']) {
         async findModel(id: string): Promise<DbDevice | null> {
             const model = await db.findUnique({
                 where: {
-                    id: id
-                }
+                    id: id,
+                },
             });
             return model;
         },
@@ -24,15 +24,15 @@ function Device(db: PrismaClient['device']) {
             const sanitized = extractUpdateData(data, false);
             return db.update({
                 where: {
-                    id: id
+                    id: id,
                 },
-                data: sanitized
+                data: sanitized,
             });
         },
 
         async all(): Promise<DbDevice[]> {
             return db.findMany({});
-        }
+        },
     });
 }
 
