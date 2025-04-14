@@ -1,7 +1,6 @@
-import prisma from './prisma';
 import express from 'express';
 import cors from 'cors';
-import {all as allDevices} from './controllers/devices';
+import router from './routes/router';
 
 const app = express();
 export const API_VERSION = 'v1';
@@ -17,30 +16,6 @@ app.use(
 
 app.use(express.json({ limit: '5mb' }));
 
-app.get(`${API_URL}/devices`, allDevices);
-
-app.get(`${API_URL}/race_course_devices`, async (req, res) => {
-    const devices = await prisma.profile.findMany({
-        where: {
-            id: 'ab251f54-0284-4730-b8ed-8b7a4dabfffe', // Race course.
-        },
-        include: {
-            deviceProfile: {
-                select: {
-                    id: true,
-                    deviceName: true,
-                    ledChoreo: {
-                        omit: {
-                            data: true,
-                        }
-                    },
-                    device: true,
-                },
-            },
-        },
-    });
-
-    res.json(devices);
-});
+app.use(API_URL, router);
 
 export default app;
