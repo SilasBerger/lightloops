@@ -19,7 +19,7 @@ function Device(db: PrismaClient['device']) {
         async updateModel(id: string, data: Partial<DbDevice>): Promise<DbDevice> {
             const record = await db.findUnique({ where: { id: id } });
             if (!record) {
-                throw new HTTP404Error('Device not found');
+                throw new HTTP404Error(`Cannot update device with id ${id}: No such device.`);
             }
             const sanitized = extractUpdateData(data, false);
             return db.update({
@@ -33,6 +33,16 @@ function Device(db: PrismaClient['device']) {
         async all(): Promise<DbDevice[]> {
             return db.findMany({});
         },
+
+        async remove(id: string): Promise<DbDevice> {
+            const record = await db.findUnique({ where: { id: id } });
+            if (!record) {
+                throw new HTTP404Error(`Cannot delete device with id ${id}: No such device.`);
+            }
+            
+            const deletedRecord = await db.delete({where: {id: id}});
+            return record;
+        }
     });
 }
 
