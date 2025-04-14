@@ -6,6 +6,7 @@ Colorful tinywhoop loops.
 
 ## Usage
 ### Setup
+- Rum `cp .env.example .env` replace with custom values.
 - Run `nvm use`.
 - Run `yarn install`.
 - Run `docker compose -f dev_services.compose.yml up -d` to set up dev services.
@@ -22,17 +23,6 @@ Colorful tinywhoop loops.
 - `scripts/purge_dev_services.sh`: Delete dev services containers and volumes.
 
 ## Dev Concepts and ideas
-### The `ll_flasher` utility
-- `ll_flasher`: Hardware config tool.
-  - `flash`: Flash the lightloops firmware to the device (not the MicroPython firmware).
-  - `id`: ID tools.
-    - `get`: Read device id.
-    - `generate`: Generate a device ID file if one doesn't yet exist.
-    - `-f, --force`: Overwrite ID file if exists.
-  - `config`: Config tools (server URL, etc.).
-    - `read`: Read the current config if exists.
-    - `write -f <filename>`: Write a config to the devices.
-
 ### API keys and user accounts
 - At a fundamental level, there is a `device_api_key` and a `web_api_key`. All device endpoints expect the former, while all endpoints serving the web UI expect the latter. This includes the request for a WebSocket connection on either side.
 - Device registration: If a device (via its config file and `ll_flasher config -f some.llconfig.json`) knows the server ID and the `device_api_key`, it is considered to have the right to register with that server.
