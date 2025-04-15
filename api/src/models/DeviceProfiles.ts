@@ -9,7 +9,6 @@ import { HTTP400Error, HTTP404Error } from '../utils/errors/Errors';
 import prisma from '../prisma';
 import { createDataExtractor } from '../helpers/dataExtractor';
 import { ClientRole } from '../routes/authConfig';
-import Logger from '../utils/logger';
 
 const extractUpdateData = createDataExtractor<Prisma.DeviceProfileUncheckedUpdateInput>([
     'deviceName',
