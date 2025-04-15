@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import DeviceProfile from '../models/DeviceProfiles';
+import Logger from '../utils/logger';
 
 export const all: RequestHandler = async (req, res, next) => {
     try {
@@ -13,6 +14,22 @@ export const all: RequestHandler = async (req, res, next) => {
 export const find: RequestHandler = async (req, res, next) => {
     try {
         const deviceProfile = await DeviceProfile.findModel(req.params.id, req.clientRole);
+        res.json(deviceProfile);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const findByDeviceIdForCurrentProfile: RequestHandler = async (req, res, next) => {
+    try {
+        // TODO: Just for development.
+        const currentProfileId = 'ab251f54-0284-4730-b8ed-8b7a4dabfffe';
+        const deviceId = req.query['deviceId'] as string;
+        const deviceProfile = await DeviceProfile.findByDeviceAndProfileId(
+            deviceId,
+            currentProfileId,
+            req.clientRole
+        );
         res.json(deviceProfile);
     } catch (error) {
         next(error);

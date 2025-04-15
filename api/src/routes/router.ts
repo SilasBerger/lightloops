@@ -23,6 +23,7 @@ import {
 import {
     create as createDeviceProfile,
     find as findDeviceProfile,
+    findByDeviceIdForCurrentProfile as findDeviceProfileByDeviceIdForCurrentProfile,
     update as updateDeviceProfile,
     remove as removeDeviceProfile,
     all as allDeviceProfiles,
@@ -55,6 +56,7 @@ router.get('/deviceProfiles', allDeviceProfiles);
 
 router.post('/deviceProfile', createDeviceProfile);
 router.get('/deviceProfile/:id', findDeviceProfile);
+router.get('/deviceProfile/', findDeviceProfileByDeviceIdForCurrentProfile);
 router.put('/deviceProfile/:id', updateDeviceProfile);
 router.delete('/deviceProfile/:id', removeDeviceProfile);
 

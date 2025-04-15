@@ -18,6 +18,14 @@ content-type: application/json
 GET http://localhost:3002/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
 Authorization: ApiKey-v1 {{$dotenv DEVICE_API_KEY}}
 
+### Find device profile for specific device and current profile (as web client).
+GET http://localhost:3002/api/v1/deviceProfile?deviceId=09756982-154d-43f9-bffa-c820b3a8e1fe
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
+
+### Find device profile for specific device and current profile (as device client).
+GET http://localhost:3002/api/v1/deviceProfile?deviceId=09756982-154d-43f9-bffa-c820b3a8e1fe
+Authorization: ApiKey-v1 {{$dotenv DEVICE_API_KEY}}
+
 ### Find a device profile as Web client.
 GET http://localhost:3002/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
