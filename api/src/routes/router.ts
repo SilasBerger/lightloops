@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-    create as createDevice,
+    ensureExists as ensureDeviceExists,
     find as findDevice,
     update as updateDevice,
     remove as removeDevice,
@@ -32,7 +32,7 @@ const router = express.Router();
 
 router.get('/devices', allDevices);
 
-router.post('/device', createDevice);
+router.post('/device', ensureDeviceExists);
 router.get('/device/:id', findDevice);
 router.put('/device/:id', updateDevice);
 router.delete('/device/:id', removeDevice);

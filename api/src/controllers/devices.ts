@@ -1,10 +1,13 @@
 import { RequestHandler } from 'express';
 import Device from '../models/Device';
 
-export const create: RequestHandler = async (req, res, next) => {
+export const ensureExists: RequestHandler = async (req, res, next) => {
     const { id, name, description } = req.body;
     try {
-        const device = await Device.createModel(id, name, description);
+        let device = await Device.findModel(id);
+        if (!device) {
+            device = await Device.createModel(id, name, description);
+        }
         res.json(device);
     } catch (error) {
         next(error);
