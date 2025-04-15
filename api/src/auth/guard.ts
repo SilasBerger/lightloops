@@ -86,11 +86,9 @@ const routeGuard = (accessMatrix: AccessRegexRule[]) => {
         }
 
         if (!requestHasRequiredAttributes(accessMatrix, req.path, req.method, req.clientRole)) {
-            return res
-                .status(HttpStatusCode.FORBIDDEN)
-                .json({
-                    error: `Clients with role '${req.clientRole}' are not authorized to perform this request.`,
-                });
+            return res.status(HttpStatusCode.FORBIDDEN).json({
+                error: `Clients with role '${req.clientRole}' are not authorized to perform this request.`,
+            });
         }
 
         next();

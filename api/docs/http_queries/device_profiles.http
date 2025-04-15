@@ -14,12 +14,16 @@ content-type: application/json
     "ledChoreoId": "16b52c8d-7854-4efd-81c3-93a91ab73ecf"
 }
 
-### Find a device profiles.
-GET http://localhost:3002/api/v1/deviceProfile/121b9f88-2451-4031-a99a-a9bab40c2cc9
+### Find a device profile as Device client.
+GET http://localhost:3002/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
 Authorization: ApiKey-v1 {{$dotenv DEVICE_API_KEY}}
 
-### Update a device profiles.
-PUT http://localhost:3002/api/v1/deviceProfile/121b9f88-2451-4031-a99a-a9bab40c2cc9
+### Find a device profile as Web client.
+GET http://localhost:3002/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
+
+### Update a device profile.
+PUT http://localhost:3002/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
@@ -28,6 +32,6 @@ content-type: application/json
     "ledChoreoId": "16128477-e940-4e11-a029-b999e32326cc"
 }
 
-### Delete a device profiles.
-DELETE http://localhost:3002/api/v1/deviceProfile/121b9f88-2451-4031-a99a-a9bab40c2cc9
+### Delete a device profile.
+DELETE http://localhost:3002/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}

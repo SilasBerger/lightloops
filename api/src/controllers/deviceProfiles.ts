@@ -12,7 +12,7 @@ export const all: RequestHandler = async (req, res, next) => {
 
 export const find: RequestHandler = async (req, res, next) => {
     try {
-        const deviceProfile = await DeviceProfile.findModel(req.params.id);
+        const deviceProfile = await DeviceProfile.findModel(req.params.id, req.clientRole);
         res.json(deviceProfile);
     } catch (error) {
         next(error);

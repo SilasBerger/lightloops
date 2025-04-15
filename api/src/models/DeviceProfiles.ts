@@ -8,6 +8,7 @@ import {
 import { HTTP400Error, HTTP404Error } from '../utils/errors/Errors';
 import prisma from '../prisma';
 import { createDataExtractor } from '../helpers/dataExtractor';
+import { ClientRole } from '../routes/authConfig';
 
 const extractUpdateData = createDataExtractor<Prisma.DeviceProfileUncheckedUpdateInput>([
     'deviceName',
@@ -37,18 +38,25 @@ function DeviceProfiles(db: PrismaClient['deviceProfile']) {
             return deviceProfiles;
         },
 
-        async findModel(id: string): Promise<ApiDeviceProfile | null> {
+        async findModel(id: string, clientRole: ClientRole): Promise<ApiDeviceProfile | null> {
+            const select =
+                clientRole === ClientRole.DEVICE
+                    ? {
+                          ledChoreo: true,
+                      }
+                    : {
+                          id: true,
+                          deviceName: true,
+                          device: true,
+                          profileId: true,
+                          ledChoreo: true,
+                      };
+
             const deviceProfiles = await db.findUnique({
                 where: {
                     id: id,
                 },
-                select: {
-                    id: true,
-                    deviceName: true,
-                    device: true,
-                    profileId: true,
-                    ledChoreo: true,
-                },
+                select: select,
             });
             return deviceProfiles;
         },
