@@ -88,7 +88,7 @@ function DeviceProfiles(db: PrismaClient['deviceProfile']) {
                       };
             const deviceProfile = await db.findFirst({
                 where: {
-                    // deviceId: deviceId,
+                    deviceId: deviceId,
                     profileId: profileId,
                 },
                 select: select,
