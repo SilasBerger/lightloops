@@ -1,8 +1,10 @@
 ### Find all led choreos.
 GET http://localhost:3002/api/v1/ledChoreos
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Create a new led choreo.
 POST http://localhost:3002/api/v1/ledChoreo
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
 {
@@ -15,10 +17,12 @@ content-type: application/json
 }
 
 ### Find a specific led choreo.
-GET http://localhost:3002/api/v1/ledChoreo/4de04f9a-4c15-4a0f-8065-b6ea4dc72563
+GET http://localhost:3002/api/v1/ledChoreo/2b7ec21b-bf4f-497f-8362-c6d7ad1fb248
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Update a led choreo.
-PUT http://localhost:3002/api/v1/ledChoreo/4de04f9a-4c15-4a0f-8065-b6ea4dc72563
+PUT http://localhost:3002/api/v1/ledChoreo/2b7ec21b-bf4f-497f-8362-c6d7ad1fb248
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
 {
@@ -28,4 +32,5 @@ content-type: application/json
 }
 
 ### Delete a led choreo.
-DELETE http://localhost:3002/api/v1/ledChoreo/4de04f9a-4c15-4a0f-8065-b6ea4dc72563
+DELETE http://localhost:3002/api/v1/ledChoreo/2b7ec21b-bf4f-497f-8362-c6d7ad1fb248
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}

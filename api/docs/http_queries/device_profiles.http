@@ -1,8 +1,10 @@
 ### Find all device profiles.
 GET http://localhost:3002/api/v1/deviceProfiles
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Create a new device profiles.
 POST http://localhost:3002/api/v1/deviceProfile
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
 {
@@ -13,10 +15,12 @@ content-type: application/json
 }
 
 ### Find a device profiles.
-GET http://localhost:3002/api/v1/deviceProfile/ffd3507e-a6d9-48b5-ba1a-0aacca546bb0
+GET http://localhost:3002/api/v1/deviceProfile/121b9f88-2451-4031-a99a-a9bab40c2cc9
+Authorization: ApiKey-v1 {{$dotenv DEVICE_API_KEY}}
 
 ### Update a device profiles.
-PUT http://localhost:3002/api/v1/deviceProfile/ffd3507e-a6d9-48b5-ba1a-0aacca546bb0
+PUT http://localhost:3002/api/v1/deviceProfile/121b9f88-2451-4031-a99a-a9bab40c2cc9
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
 {
@@ -25,4 +29,5 @@ content-type: application/json
 }
 
 ### Delete a device profiles.
-DELETE http://localhost:3002/api/v1/deviceProfile/ffd3507e-a6d9-48b5-ba1a-0aacca546bb0
+DELETE http://localhost:3002/api/v1/deviceProfile/121b9f88-2451-4031-a99a-a9bab40c2cc9
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}

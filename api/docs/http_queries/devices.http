@@ -1,8 +1,10 @@
 ### Find all devices.
 GET http://localhost:3002/api/v1/devices
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Create a new device.
 POST http://localhost:3002/api/v1/device
+Authorization: ApiKey-v1 {{$dotenv DEVICE_API_KEY}}
 content-type: application/json
 
 {
@@ -13,9 +15,11 @@ content-type: application/json
 
 ### Find a specific device.
 GET http://localhost:3002/api/v1/device/3c2c7960-afef-4836-9a15-8312b3cfaa84
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Update a device.
 PUT http://localhost:3002/api/v1/device/3c2c7960-afef-4836-9a15-8312b3cfaa84
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
 {
@@ -24,3 +28,4 @@ content-type: application/json
 
 ### Delete a device.
 DELETE http://localhost:3002/api/v1/device/3c2c7960-afef-4836-9a15-8312b3cfaa84
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
