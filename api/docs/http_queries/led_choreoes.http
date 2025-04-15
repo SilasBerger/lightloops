@@ -1,0 +1,31 @@
+### Find all led choreos.
+GET http://localhost:3002/api/v1/ledChoreos
+
+### Create a new led choreo.
+POST http://localhost:3002/api/v1/ledChoreo
+content-type: application/json
+
+{
+    "name": "Demo LED Choreo",
+    "description": "Demo LED Choreo created with REST client.",
+    "type": "static",
+    "data": {
+        "colors": [[227, 245, 66]]
+    }
+}
+
+### Find a specific device.
+GET http://localhost:3002/api/v1/ledChoreo/4de04f9a-4c15-4a0f-8065-b6ea4dc72563
+
+### Update a device.
+PUT http://localhost:3002/api/v1/ledChoreo/4de04f9a-4c15-4a0f-8065-b6ea4dc72563
+content-type: application/json
+
+{
+    "data": {
+        "colors": [[227, 245, 66], [71, 245, 135]]
+    }
+}
+
+### Delete a device.
+DELETE http://localhost:3002/api/v1/ledChoreo/4de04f9a-4c15-4a0f-8065-b6ea4dc72563

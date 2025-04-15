@@ -17,6 +17,10 @@ function Device(db: PrismaClient['device']) {
             });
         },
 
+        async all(): Promise<DbDevice[]> {
+            return db.findMany({});
+        },
+
         async findModel(id: string): Promise<DbDevice | null> {
             const model = await db.findUnique({
                 where: {
@@ -38,10 +42,6 @@ function Device(db: PrismaClient['device']) {
                 },
                 data: sanitized,
             });
-        },
-
-        async all(): Promise<DbDevice[]> {
-            return db.findMany({});
         },
 
         async remove(id: string): Promise<DbDevice> {
