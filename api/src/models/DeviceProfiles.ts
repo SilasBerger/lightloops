@@ -15,7 +15,7 @@ const extractUpdateData = createDataExtractor<Prisma.DeviceProfileUncheckedUpdat
     'ledChoreoId',
 ]);
 
-interface ApiDeviceProfile {
+interface WebApiDeviceProfile {
     id: string;
     device: DbDevice;
     profileId: string;
@@ -23,9 +23,13 @@ interface ApiDeviceProfile {
     ledChoreo: DbLedChoreo | null;
 }
 
+interface DeviceApiDeviceProfile {
+    ledChoreo: DbLedChoreo | null;
+}
+
 function DeviceProfiles(db: PrismaClient['deviceProfile']) {
     return Object.assign(db, {
-        async all(): Promise<ApiDeviceProfile[]> {
+        async all(): Promise<WebApiDeviceProfile[]> {
             const deviceProfiles = await db.findMany({
                 select: {
                     id: true,
@@ -38,7 +42,10 @@ function DeviceProfiles(db: PrismaClient['deviceProfile']) {
             return deviceProfiles;
         },
 
-        async findModel(id: string, clientRole: ClientRole): Promise<ApiDeviceProfile | null> {
+        async findModel(
+            id: string,
+            clientRole: ClientRole
+        ): Promise<WebApiDeviceProfile | DeviceApiDeviceProfile | null> {
             const select =
                 clientRole === ClientRole.DEVICE
                     ? {
@@ -66,7 +73,7 @@ function DeviceProfiles(db: PrismaClient['deviceProfile']) {
             profileId: string,
             deviceName?: string,
             ledChoreoId?: string
-        ): Promise<ApiDeviceProfile> {
+        ): Promise<WebApiDeviceProfile> {
             const profile = await prisma.profile.findUnique({ where: { id: profileId } });
             if (!profile) {
                 throw new HTTP404Error(`Cannot create device profile: No such profile with id ${profileId}.`);
@@ -102,7 +109,7 @@ function DeviceProfiles(db: PrismaClient['deviceProfile']) {
             return createdDeviceProfile;
         },
 
-        async updateModel(id: string, data: Partial<DbDeviceProfile>): Promise<ApiDeviceProfile> {
+        async updateModel(id: string, data: Partial<DbDeviceProfile>): Promise<WebApiDeviceProfile> {
             const record = await db.findUnique({ where: { id: id } });
             if (!record) {
                 throw new HTTP404Error(`Cannot update device profile with id ${id}: No such device profile.`);
