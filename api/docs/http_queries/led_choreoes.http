@@ -14,10 +14,10 @@ content-type: application/json
     }
 }
 
-### Find a specific device.
+### Find a specific led choreo.
 GET http://localhost:3002/api/v1/ledChoreo/4de04f9a-4c15-4a0f-8065-b6ea4dc72563
 
-### Update a device.
+### Update a led choreo.
 PUT http://localhost:3002/api/v1/ledChoreo/4de04f9a-4c15-4a0f-8065-b6ea4dc72563
 content-type: application/json
 
@@ -27,5 +27,5 @@ content-type: application/json
     }
 }
 
-### Delete a device.
+### Delete a led choreo.
 DELETE http://localhost:3002/api/v1/ledChoreo/4de04f9a-4c15-4a0f-8065-b6ea4dc72563

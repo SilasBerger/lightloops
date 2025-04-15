@@ -1,0 +1,28 @@
+### Find all device profiles.
+GET http://localhost:3002/api/v1/deviceProfiles
+
+### Create a new device profiles.
+POST http://localhost:3002/api/v1/deviceProfile
+content-type: application/json
+
+{
+    "deviceId": "09756982-154d-43f9-bffa-c820b3a8e1fe",
+    "profileId": "8f43d9af-9ef6-436e-aa0d-724b7f57d9da",
+    "deviceName": "Demo device from REST client",
+    "ledChoreoId": "16b52c8d-7854-4efd-81c3-93a91ab73ecf"
+}
+
+### Find a device profiles.
+GET http://localhost:3002/api/v1/deviceProfile/ffd3507e-a6d9-48b5-ba1a-0aacca546bb0
+
+### Update a device profiles.
+PUT http://localhost:3002/api/v1/deviceProfile/ffd3507e-a6d9-48b5-ba1a-0aacca546bb0
+content-type: application/json
+
+{
+    "deviceName": "New name for REST client demo device",
+    "ledChoreoId": "16128477-e940-4e11-a029-b999e32326cc"
+}
+
+### Delete a device profiles.
+DELETE http://localhost:3002/api/v1/deviceProfile/ffd3507e-a6d9-48b5-ba1a-0aacca546bb0

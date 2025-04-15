@@ -20,6 +20,13 @@ import {
     remove as removeLedChoreo,
     all as allLedChoreos,
 } from '../controllers/ledChoreos';
+import {
+    create as createDeviceProfile,
+    find as findDeviceProfile,
+    update as updateDeviceProfile,
+    remove as removeDeviceProfile,
+    all as allDeviceProfiles,
+} from '../controllers/deviceProfiles';
 
 const router = express.Router();
 
@@ -43,5 +50,12 @@ router.post('/ledChoreo', createLedChoreo);
 router.get('/ledChoreo/:id', findLedChoreo);
 router.put('/ledChoreo/:id', updateLedChoreo);
 router.delete('/ledChoreo/:id', removeLedChoreo);
+
+router.get('/deviceProfiles', allDeviceProfiles);
+
+router.post('/deviceProfile', createDeviceProfile);
+router.get('/deviceProfile/:id', findDeviceProfile);
+router.put('/deviceProfile/:id', updateDeviceProfile);
+router.delete('/deviceProfile/:id', removeDeviceProfile);
 
 export default router;
