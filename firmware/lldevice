@@ -43,11 +43,28 @@ def generate_device_id(overwrite = False):
         )
     finally:
         os.remove("device_id")
-    
+
+
+def write_config(config_file):
+    try:
+        subprocess.run(
+            [MPREMOTE, "fs", "cp", config_file, ":config.json"],
+            check=True,
+            stdout = subprocess.DEVNULL,
+            stderr = subprocess.DEVNULL
+        )
+    except Exception as e:
+        return str(e)
+    return None
+
 
 class InstallCommand(Command):
     name = "install"
     description = "Install the LightLoops firmware on the connected device."
+
+    arguments = [
+        argument("config", "The config file to write to the device during installation.", optional=False)
+    ]
 
     def handle(self):
         # ./mpremote fs cp -r src/* :
@@ -58,15 +75,24 @@ class InstallCommand(Command):
             check=True
         )
         generate_device_id(overwrite=False)
+        write_config(self.argument("config"))
         self.line("<comment>LightLoops firmware installed successfully!</comment>")
+
 
 class UninstallCommand(Command):
     name = "uninstall"
-    description = "Uninstall LightLoops firmware from the connected device. Does not delete auxiliary files, such as device_id."
+    description = "Uninstall LightLoops firmware from the connected device. Does not delete auxiliary files, such as device ID or config."
+    options = [
+        option("all", "a", "Remove all files, including auxiliary files (device ID, config, etc.).", flag=True),
+    ]
 
     PROTECTED_ROOT_FILES = [
         "boot.py",
-        "device_id"
+    ]
+
+    OPTIONAL_PROTECTED_ROOT_FILES = [
+        "device_id",
+        "config.json",
     ]
 
     def handle(self):
@@ -80,10 +106,9 @@ class UninstallCommand(Command):
             self.line("<error>Failed to list device files!</error>")
             return
 
+        protected_files = self.PROTECTED_ROOT_FILES if self.option("all") else self.PROTECTED_ROOT_FILES + self.OPTIONAL_PROTECTED_ROOT_FILES
         entries = [" ".join(line.strip().split(" ")[1:]) for line in result.stdout.split("\n")]
-        entries = [entry for entry in entries if entry != ":" and entry != "" and entry not in self.PROTECTED_ROOT_FILES]
-
-        print(entries)
+        entries = [entry for entry in entries if entry != ":" and entry != "" and entry not in protected_files]
 
         for entry in entries:
             delete_cmd = [
@@ -96,7 +121,8 @@ class UninstallCommand(Command):
             subprocess.run(delete_cmd, check=False)  # Continue on individual failures
 
         self.line("<comment>Cleanup complete.</comment>")
-    
+
+
 class ReadDeviceIdCommand(Command):
     name = "read-device-id"
     description = "Read the device ID from the connected device."
@@ -104,6 +130,7 @@ class ReadDeviceIdCommand(Command):
     def handle(self):
         device_id = read_device_id()
         self.line("<comment>Device ID: {}</comment>".format(device_id))
+
 
 class RegenerateDeviceIdCommand(Command):
     name = "regenerate-device-id"
@@ -114,11 +141,48 @@ class RegenerateDeviceIdCommand(Command):
         device_id = read_device_id()
         self.line("<comment>Device ID regenerated successfully: {}</comment>".format(device_id))
 
+
+class ReadConfigCommand(Command):
+    name = "read-config"
+    description = "Read the configuration from the connected device."
+
+    def handle(self):
+            try:
+                result = subprocess.run(
+                    [MPREMOTE, "fs", "cat", ":config.json"],
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+
+                self.line(result.stdout.strip())
+            except Exception as e:
+                self.line("<error>No configuration file found.</error>")
+
+
+class WriteConfigCommand(Command):
+    name = "write-config"
+    description = "Write the configuration to the connected device."
+    arguments = [
+        argument("config", "The configuration file to write.", optional=False)
+    ]
+
+    def handle(self):
+        config_file = self.argument("config")
+        error = write_config(config_file)
+        if error:
+            self.line("<error>Failed to write configuration file: {}</error>".format(error))
+        else:
+            self.line("<comment>Configuration file written successfully.</comment>")
+
+
 application = Application()
 application.add(InstallCommand())
 application.add(UninstallCommand())
 application.add(ReadDeviceIdCommand())
 application.add(RegenerateDeviceIdCommand())
+application.add(ReadConfigCommand())
+application.add(WriteConfigCommand())
 
 if __name__ == "__main__":
     application.run()
