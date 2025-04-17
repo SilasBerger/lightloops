@@ -46,7 +46,7 @@ const loadDefaultServerState = async () => {
     updateServerState({
         currentProfile: profileId ?? '',
     });
-}
+};
 
 loadDefaultServerState().then();
 

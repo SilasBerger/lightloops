@@ -128,8 +128,8 @@ const authConfig: Config = {
                     methods: ['GET', 'POST'],
                     clientRoles: [ClientRole.WEB],
                 },
-            ]
-        }
+            ],
+        },
     },
 };
 

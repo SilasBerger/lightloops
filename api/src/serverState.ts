@@ -17,6 +17,6 @@ const updateServerState = (newState: Partial<ServerState>) => {
         ..._serverState,
         ...newState,
     };
-}
+};
 
-export { serverState, updateServerState }
+export { serverState, updateServerState };
