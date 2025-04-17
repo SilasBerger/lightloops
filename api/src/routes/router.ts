@@ -28,6 +28,7 @@ import {
     remove as removeDeviceProfile,
     all as allDeviceProfiles,
 } from '../controllers/deviceProfiles';
+import { getServerState, updateServerState } from '../controllers/serverState';
 
 const router = express.Router();
 
@@ -59,5 +60,8 @@ router.get('/deviceProfile/:id', findDeviceProfile);
 router.get('/deviceProfile/', findDeviceProfileByDeviceIdForCurrentProfile);
 router.put('/deviceProfile/:id', updateDeviceProfile);
 router.delete('/deviceProfile/:id', removeDeviceProfile);
+
+router.get('/serverState', getServerState);
+router.post('/serverState', updateServerState);
 
 export default router;

@@ -121,6 +121,15 @@ const authConfig: Config = {
                 },
             ],
         },
+        settings: {
+            path: '/serverState',
+            access: [
+                {
+                    methods: ['GET', 'POST'],
+                    clientRoles: [ClientRole.WEB],
+                },
+            ]
+        }
     },
 };
 

@@ -1,0 +1,21 @@
+### Get current server settings.
+GET http://localhost:3002/api/v1/serverState
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
+
+### Update server settings (no changes).
+POST http://localhost:3002/api/v1/serverState
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
+content-type: application/json
+
+{
+    
+}
+
+### Update server settings (change current profile).
+POST http://localhost:3002/api/v1/serverState
+Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
+content-type: application/json
+
+{
+    "currentProfile": "ab251f54-0284-4730-b8ed-8b7a4dabfffe"
+}

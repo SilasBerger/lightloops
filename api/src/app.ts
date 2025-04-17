@@ -3,6 +3,8 @@ import cors from 'cors';
 import router from './routes/router';
 import authConfig, { ClientRole } from './routes/authConfig';
 import routeGuard, { createAccessRules } from './auth/guard';
+import prisma from './prisma';
+import { updateServerState } from './serverState';
 
 const app = express();
 export const API_VERSION = 'v1';
@@ -36,6 +38,17 @@ const extractClientRole = (req: Request, res: Response, next: NextFunction) => {
 
     next();
 };
+
+// TODO: Consider persisting state to DB to avoid reset on restart.
+const loadDefaultServerState = async () => {
+    const profile = await prisma.profile.findFirst({});
+    const profileId = profile ? profile.id : null;
+    updateServerState({
+        currentProfile: profileId ?? '',
+    });
+}
+
+loadDefaultServerState().then();
 
 app.use(
     API_URL,

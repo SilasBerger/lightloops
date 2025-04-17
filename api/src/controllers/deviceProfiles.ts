@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import DeviceProfile from '../models/DeviceProfiles';
-import Logger from '../utils/logger';
+import { serverState } from '../serverState';
 
 export const all: RequestHandler = async (req, res, next) => {
     try {
@@ -22,8 +22,7 @@ export const find: RequestHandler = async (req, res, next) => {
 
 export const findByDeviceIdForCurrentProfile: RequestHandler = async (req, res, next) => {
     try {
-        // TODO: Just for development.
-        const currentProfileId = 'ab251f54-0284-4730-b8ed-8b7a4dabfffe';
+        const currentProfileId = serverState().currentProfile;
         const deviceId = req.query['deviceId'] as string;
         const deviceProfile = await DeviceProfile.findByDeviceAndProfileId(
             deviceId,
