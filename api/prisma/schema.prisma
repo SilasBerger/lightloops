@@ -36,7 +36,7 @@ model Profile {
   @@map("profiles")
 }
 
-model LedChoreo {
+model LightScene {
   id             String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name           String          @unique
   description    String?
@@ -44,18 +44,18 @@ model LedChoreo {
   data           Json
   deviceProfiles DeviceProfile[]
 
-  @@map("led_choreos")
+  @@map("light_scenes")
 }
 
 model DeviceProfile {
-  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  deviceId    String     @map("device_id") @db.Uuid
-  profileId   String     @map("profile_id") @db.Uuid
-  deviceName  String?    @map("device_name")
-  ledChoreoId String?    @map("led_choreo_id") @db.Uuid
-  device      Device     @relation(fields: [deviceId], references: [id], onDelete: Cascade)
-  profile     Profile    @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  ledChoreo   LedChoreo? @relation(fields: [ledChoreoId], references: [id], onDelete: SetNull)
+  id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  deviceId     String      @map("device_id") @db.Uuid
+  profileId    String      @map("profile_id") @db.Uuid
+  deviceName   String?     @map("device_name")
+  lightSceneId String?     @map("light_scene_id") @db.Uuid
+  device       Device      @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  profile      Profile     @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  lightScene   LightScene? @relation(fields: [lightSceneId], references: [id], onDelete: SetNull)
 
   @@unique([deviceId, profileId])
   @@map("device_profiles")

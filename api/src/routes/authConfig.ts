@@ -77,8 +77,8 @@ const authConfig: Config = {
                 },
             ],
         },
-        ledChoreos: {
-            path: '/ledChoreos',
+        lightScenes: {
+            path: '/lightScenes',
             access: [
                 {
                     methods: ['GET'],
@@ -86,8 +86,8 @@ const authConfig: Config = {
                 },
             ],
         },
-        ledChoreo: {
-            path: '/ledChoreo',
+        lightScene: {
+            path: '/lightScene',
             access: [
                 {
                     methods: ['GET'],

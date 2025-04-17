@@ -2,7 +2,7 @@ import {
     PrismaClient,
     DeviceProfile as DbDeviceProfile,
     Device as DbDevice,
-    LedChoreo as DbLedChoreo,
+    LightScene as DbLightScene,
     Prisma,
 } from '@prisma/client';
 import { HTTP400Error, HTTP404Error } from '../utils/errors/Errors';
@@ -12,7 +12,7 @@ import { ClientRole } from '../routes/authConfig';
 
 const extractUpdateData = createDataExtractor<Prisma.DeviceProfileUncheckedUpdateInput>([
     'deviceName',
-    'ledChoreoId',
+    'lightSceneId',
 ]);
 
 interface WebApiDeviceProfile {
@@ -20,11 +20,11 @@ interface WebApiDeviceProfile {
     device: DbDevice;
     profileId: string;
     deviceName: string | null;
-    ledChoreo: DbLedChoreo | null;
+    lightScene: DbLightScene | null;
 }
 
 interface DeviceApiDeviceProfile {
-    ledChoreo: DbLedChoreo | null;
+    lightScene: DbLightScene | null;
 }
 
 function DeviceProfiles(db: PrismaClient['deviceProfile']) {
@@ -36,7 +36,7 @@ function DeviceProfiles(db: PrismaClient['deviceProfile']) {
                     deviceName: true,
                     device: true,
                     profileId: true,
-                    ledChoreo: true,
+                    lightScene: true,
                 },
             });
             return deviceProfiles;
@@ -49,14 +49,14 @@ function DeviceProfiles(db: PrismaClient['deviceProfile']) {
             const select =
                 clientRole === ClientRole.DEVICE
                     ? {
-                          ledChoreo: true,
+                          lightScene: true,
                       }
                     : {
                           id: true,
                           deviceName: true,
                           device: true,
                           profileId: true,
-                          ledChoreo: true,
+                          lightScene: true,
                       };
 
             const deviceProfile = await db.findUnique({
@@ -76,14 +76,14 @@ function DeviceProfiles(db: PrismaClient['deviceProfile']) {
             const select =
                 clientRole === ClientRole.DEVICE
                     ? {
-                          ledChoreo: true,
+                          lightScene: true,
                       }
                     : {
                           id: true,
                           deviceName: true,
                           device: true,
                           profileId: true,
-                          ledChoreo: true,
+                          lightScene: true,
                       };
             const deviceProfile = await db.findFirst({
                 where: {
@@ -99,7 +99,7 @@ function DeviceProfiles(db: PrismaClient['deviceProfile']) {
             deviceId: string,
             profileId: string,
             deviceName?: string,
-            ledChoreoId?: string
+            lightSceneId?: string
         ): Promise<WebApiDeviceProfile> {
             const profile = await prisma.profile.findUnique({ where: { id: profileId } });
             if (!profile) {
@@ -123,14 +123,14 @@ function DeviceProfiles(db: PrismaClient['deviceProfile']) {
                     deviceId: deviceId,
                     profileId: profileId,
                     deviceName: deviceName,
-                    ledChoreoId: ledChoreoId,
+                    lightSceneId: lightSceneId,
                 },
                 select: {
                     id: true,
                     deviceName: true,
                     device: true,
                     profileId: true,
-                    ledChoreo: true,
+                    lightScene: true,
                 },
             });
             return createdDeviceProfile;
@@ -151,7 +151,7 @@ function DeviceProfiles(db: PrismaClient['deviceProfile']) {
                     deviceName: true,
                     device: true,
                     profileId: true,
-                    ledChoreo: true,
+                    lightScene: true,
                 },
             });
             return updatedRecord;

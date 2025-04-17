@@ -37,8 +37,8 @@ export const findByDeviceIdForCurrentProfile: RequestHandler = async (req, res, 
 
 export const create: RequestHandler = async (req, res, next) => {
     try {
-        const { deviceId, profileId, deviceName, ledChoreoId } = req.body;
-        const deviceProfile = await DeviceProfile.createModel(deviceId, profileId, deviceName, ledChoreoId);
+        const { deviceId, profileId, deviceName, lightSceneId } = req.body;
+        const deviceProfile = await DeviceProfile.createModel(deviceId, profileId, deviceName, lightSceneId);
         res.json(deviceProfile);
     } catch (error) {
         next(error);

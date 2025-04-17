@@ -7,7 +7,7 @@ export const COLOR_CYCLE_CHOREO_ID = '4e2caf60-fa50-47ad-a909-6a8bf99860b3';
 export const MULTI_FLASHING_CHOREO_ID = '16128477-e940-4e11-a029-b999e32326cc';
 export const SPLIT_MULTI_CHOREO_ID = 'f2fa8972-83ca-48f9-aa8f-aa13c6739288';
 
-const ledChoreos: Prisma.LedChoreoCreateInput[] = [
+const lightScenes: Prisma.LightSceneCreateInput[] = [
     {
         id: STATIC_PINK_CHOREO_ID,
         name: 'Static pink',
@@ -145,4 +145,4 @@ const ledChoreos: Prisma.LedChoreoCreateInput[] = [
     },
 ];
 
-export { ledChoreos };
+export { lightScenes };

@@ -7,7 +7,7 @@ import {
     MULTI_RUNNING_CHOREO_ID,
     MULTI_FLASHING_CHOREO_ID,
     SPLIT_MULTI_CHOREO_ID,
-} from './ledChoreos';
+} from './lightScenes';
 
 const deviceProfiles: Prisma.DeviceProfileCreateInput[] = [
     {
@@ -35,7 +35,7 @@ const deviceProfiles: Prisma.DeviceProfileCreateInput[] = [
                 id: DEFAULT_PROFILE_ID,
             },
         },
-        ledChoreo: {
+        lightScene: {
             connect: {
                 id: STATIC_PINK_CHOREO_ID,
             },
@@ -67,7 +67,7 @@ const deviceProfiles: Prisma.DeviceProfileCreateInput[] = [
                 id: RACE_COURSE_PROFILE_ID,
             },
         },
-        ledChoreo: {
+        lightScene: {
             connect: {
                 id: MULTI_FLASHING_CHOREO_ID,
             },
@@ -86,7 +86,7 @@ const deviceProfiles: Prisma.DeviceProfileCreateInput[] = [
                 id: RACE_COURSE_PROFILE_ID,
             },
         },
-        ledChoreo: {
+        lightScene: {
             connect: {
                 id: GREEN_SINGLE_RUNNING_CHOREO_ID,
             },
@@ -105,7 +105,7 @@ const deviceProfiles: Prisma.DeviceProfileCreateInput[] = [
                 id: RACE_COURSE_PROFILE_ID,
             },
         },
-        ledChoreo: {
+        lightScene: {
             connect: {
                 id: SPLIT_MULTI_CHOREO_ID,
             },
@@ -123,7 +123,7 @@ const deviceProfiles: Prisma.DeviceProfileCreateInput[] = [
                 id: PRACTICE_PROFILE_ID,
             },
         },
-        ledChoreo: {
+        lightScene: {
             connect: {
                 id: MULTI_RUNNING_CHOREO_ID,
             },

@@ -1,22 +1,22 @@
-import { PrismaClient, LedChoreo as DbLedChoreo } from '@prisma/client';
+import { PrismaClient, LightScene as DbLightScene } from '@prisma/client';
 import prisma from '../prisma';
 import { HTTP400Error } from '../utils/errors/Errors';
 
-function LedChoreo(db: PrismaClient['ledChoreo']) {
+function LightScene(db: PrismaClient['lightScene']) {
     return Object.assign(db, {
         async createModel(
             name: string,
             type: string,
             data: object,
             description?: string
-        ): Promise<DbLedChoreo> {
+        ): Promise<DbLightScene> {
             if (!name) {
-                throw new HTTP400Error('Cannot create LedChoreo: name is required.');
+                throw new HTTP400Error('Cannot create LightScene: name is required.');
             }
             const record = await db.findFirst({ where: { name: name } });
             if (record) {
                 throw new HTTP400Error(
-                    `Cannot create LedChoreo with name ${name}: A LedChoreo with this name already exists.`
+                    `Cannot create LightScene with name ${name}: A LightScene with this name already exists.`
                 );
             }
 
@@ -30,11 +30,11 @@ function LedChoreo(db: PrismaClient['ledChoreo']) {
             });
         },
 
-        async all(): Promise<DbLedChoreo[]> {
+        async all(): Promise<DbLightScene[]> {
             return db.findMany({});
         },
 
-        async findModel(id: string): Promise<DbLedChoreo | null> {
+        async findModel(id: string): Promise<DbLightScene | null> {
             const model = await db.findUnique({
                 where: {
                     id: id,
@@ -43,10 +43,10 @@ function LedChoreo(db: PrismaClient['ledChoreo']) {
             return model;
         },
 
-        async updateModel(id: string, updateData: Partial<DbLedChoreo>): Promise<DbLedChoreo> {
+        async updateModel(id: string, updateData: Partial<DbLightScene>): Promise<DbLightScene> {
             const record = await db.findUnique({ where: { id: id } });
             if (!record) {
-                throw new HTTP400Error(`Cannot update LedChoreo with id ${id}: No such LedChoreo.`);
+                throw new HTTP400Error(`Cannot update LightScene with id ${id}: No such LightScene.`);
             }
             const { name, description, type, data } = updateData;
             return db.update({
@@ -62,10 +62,10 @@ function LedChoreo(db: PrismaClient['ledChoreo']) {
             });
         },
 
-        async remove(id: string): Promise<DbLedChoreo> {
+        async remove(id: string): Promise<DbLightScene> {
             const record = await db.findUnique({ where: { id: id } });
             if (!record) {
-                throw new HTTP400Error(`Cannot delete LedChoreo with id ${id}: No such LedChoreo.`);
+                throw new HTTP400Error(`Cannot delete LightScene with id ${id}: No such LightScene.`);
             }
 
             const deletedRecord = await db.delete({ where: { id: id } });
@@ -74,4 +74,4 @@ function LedChoreo(db: PrismaClient['ledChoreo']) {
     });
 }
 
-export default LedChoreo(prisma.ledChoreo);
+export default LightScene(prisma.lightScene);

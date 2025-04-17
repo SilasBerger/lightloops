@@ -14,12 +14,12 @@ import {
     all as allProfiles,
 } from '../controllers/profiles';
 import {
-    create as createLedChoreo,
-    find as findLedChoreo,
-    update as updateLedChoreo,
-    remove as removeLedChoreo,
-    all as allLedChoreos,
-} from '../controllers/ledChoreos';
+    create as createLightScene,
+    find as findLightScene,
+    update as updateLightScene,
+    remove as removeLightScene,
+    all as allLightScenes,
+} from '../controllers/lightScenes';
 import {
     create as createDeviceProfile,
     find as findDeviceProfile,
@@ -46,12 +46,12 @@ router.get('/profile/:id', findProfile);
 router.put('/profile/:id', updateProfile);
 router.delete('/profile/:id', removeProfile);
 
-router.get('/ledChoreos', allLedChoreos);
+router.get('/lightScenes', allLightScenes);
 
-router.post('/ledChoreo', createLedChoreo);
-router.get('/ledChoreo/:id', findLedChoreo);
-router.put('/ledChoreo/:id', updateLedChoreo);
-router.delete('/ledChoreo/:id', removeLedChoreo);
+router.post('/lightScene', createLightScene);
+router.get('/lightScene/:id', findLightScene);
+router.put('/lightScene/:id', updateLightScene);
+router.delete('/lightScene/:id', removeLightScene);
 
 router.get('/deviceProfiles', allDeviceProfiles);
 

@@ -16,7 +16,7 @@ Table profiles {
   deviceProfile device_profiles [not null]
 }
 
-Table led_choreos {
+Table light_scenes {
   id String [pk]
   name String [unique, not null]
   description String
@@ -30,10 +30,10 @@ Table device_profiles {
   deviceId String [not null]
   profileId String [not null]
   deviceName String
-  ledChoreoId String
+  lightSceneId String
   device devices [not null]
   profile profiles [not null]
-  ledChoreo led_choreos
+  lightScene light_scenes
 
   indexes {
     (deviceId, profileId) [unique]
@@ -44,4 +44,4 @@ Ref: device_profiles.deviceId > devices.id [delete: Cascade]
 
 Ref: device_profiles.profileId > profiles.id [delete: Cascade]
 
-Ref: device_profiles.ledChoreoId > led_choreos.id [delete: Set Null]
+Ref: device_profiles.lightSceneId > light_scenes.id [delete: Set Null]

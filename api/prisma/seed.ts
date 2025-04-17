@@ -1,7 +1,7 @@
 import prisma from '../src/prisma';
 import { devices as devicesInput } from './seed-files/devices';
 import { profiles as profilesInput } from './seed-files/profiles';
-import { ledChoreos as ledChoreosInput } from './seed-files/ledChoreos';
+import { lightScenes as lightScenesInput } from './seed-files/lightScenes';
 import { deviceProfiles as deviceProfilesInput } from './seed-files/deviceProfiles';
 
 async function main() {
@@ -13,8 +13,8 @@ async function main() {
         data: profilesInput,
     });
 
-    const ledChoreos = await prisma.ledChoreo.createMany({
-        data: ledChoreosInput,
+    const lightScenes = await prisma.lightScene.createMany({
+        data: lightScenesInput,
     });
 
     deviceProfilesInput.forEach(async (deviceProfile) => {
