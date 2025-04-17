@@ -3,16 +3,14 @@
 - `python3 -m venv venv`
 - `source ./venv/bin/activate`
 - `pip install -r requirements.txt`
+- `cp example.config.json src/config.json` and fill in the correct values.
+
+**Note:** The `/src` directory contains a `device_id` file to support development using the `mpremote mount` command.
 
 ## CLI Usage
 The CLI is used to install and configure the LightLoops firmware on ESP32 devices.
 
 Run `./lldevice --help` to see a list of available commands.
-
-TOOD:
-  - `config`: Config tools (server URL, etc.).
-    - `read`: Read the current config if exists.
-    - `write -f <filename>`: Write a config to the devices.
 
 ## ESP32 Development
 - Flash the MicroPython firmware to the ESP32 device, e.g. using [this repo](https://github.com/SilasBerger/nodemcu-setup?tab=readme-ov-file#flashing-firmware).

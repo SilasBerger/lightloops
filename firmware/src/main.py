@@ -1,42 +1,46 @@
-from machine import Pin
-import neopixel
-import time
+import network
+import json
+import sys
+import os
+
 
 LED_COUNT = 30
 DATA_PIN = 4
 
-strip = neopixel.NeoPixel(Pin(DATA_PIN), LED_COUNT, bpp=3)  # bpp=4 for RGBW, 3 for RGB
+
+def read_config():
+    try:
+        with open("./config.json") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Error reading config: {e}")
+        sys.exit(1)
 
 
-def bounce():
-    delay = 0.01
-    color = (0, 255, 100)
+def read_device_id():
+    try:
+        with open("./device_id") as f:
+            return f.read().strip()
+    except Exception as e:
+        print(f"Error reading device ID: {e}")
+        sys.exit(1)
 
-    for round in range(5):
-        for i in range(LED_COUNT):
-            strip[i] = color
-            strip.write()
-            time.sleep(delay)
-            strip[i] = (0, 0, 0)
-            strip.write()
-        
-        for i in reversed(range(LED_COUNT)):
-            strip[i] = color
-            strip.write()
-            time.sleep(delay)
-            strip[i] = (0, 0, 0)
-            strip.write()
 
-def circle():
-    delay = 0.01
-    color = (0, 255, 100)
+def wlan_connect(wlan_config):
+    wlan = network.WLAN()
+    wlan.active(True)
+    wlan.connect(wlan_config["ssid"], wlan_config["password"])
+    if wlan.isconnected():
+        print("WLAN connected.")
+    else:
+        print("WLAN connection failed, check configuration.")
 
-    for round in range(20):
-        for i in range(LED_COUNT):
-            strip[i] = color
-            strip.write()
-            time.sleep(delay)
-            strip[i] = (0, 0, 0)
-            strip.write()
 
-circle()
+def main():
+    config = read_config()
+    device_id = read_device_id()
+    print(f"Device ID: {device_id}")
+    wlan_connect(config['wlan'])
+
+
+main()

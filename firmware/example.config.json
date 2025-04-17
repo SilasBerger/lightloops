@@ -2,5 +2,9 @@
     "server": {
         "url": "http://localhost:3002",
         "apiKey": "device_api_key_1234"
+    },
+    "wlan": {
+        "ssid": "FBI Surveillance Van",
+        "password": "my$uper$ecretP@ssw0rd"
     }
 }
