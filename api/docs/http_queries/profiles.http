@@ -1,9 +1,9 @@
 ### Find all profiles.
-GET http://localhost:3002/api/v1/profiles
+GET http://localhost:3005/api/v1/profiles
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Create a new profile.
-POST http://localhost:3002/api/v1/profile
+POST http://localhost:3005/api/v1/profile
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
@@ -13,11 +13,11 @@ content-type: application/json
 }
 
 ### Find a specific profile.
-GET http://localhost:3002/api/v1/profile/478fc59b-06ee-4ca6-9faa-4084192abce6
+GET http://localhost:3005/api/v1/profile/478fc59b-06ee-4ca6-9faa-4084192abce6
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Update a profile.
-PUT http://localhost:3002/api/v1/profile/478fc59b-06ee-4ca6-9faa-4084192abce6
+PUT http://localhost:3005/api/v1/profile/478fc59b-06ee-4ca6-9faa-4084192abce6
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
@@ -26,5 +26,5 @@ content-type: application/json
 }
 
 ### Delete a profile.
-DELETE http://localhost:3002/api/v1/profile/478fc59b-06ee-4ca6-9faa-4084192abce6
+DELETE http://localhost:3005/api/v1/profile/478fc59b-06ee-4ca6-9faa-4084192abce6
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}

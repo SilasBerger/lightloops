@@ -1,9 +1,9 @@
 ### Find all device profiles.
-GET http://localhost:3002/api/v1/deviceProfiles
+GET http://localhost:3005/api/v1/deviceProfiles
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Create a new device profiles.
-POST http://localhost:3002/api/v1/deviceProfile
+POST http://localhost:3005/api/v1/deviceProfile
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
@@ -15,23 +15,23 @@ content-type: application/json
 }
 
 ### Find a device profile as Device client.
-GET http://localhost:3002/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
+GET http://localhost:3005/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
 Authorization: ApiKey-v1 {{$dotenv DEVICE_API_KEY}}
 
 ### Find device profile for specific device and current profile (as web client).
-GET http://localhost:3002/api/v1/deviceProfile?deviceId=09756982-154d-43f9-bffa-c820b3a8e1fe
+GET http://localhost:3005/api/v1/deviceProfile?deviceId=09756982-154d-43f9-bffa-c820b3a8e1fe
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Find device profile for specific device and current profile (as device client).
-GET http://localhost:3002/api/v1/deviceProfile?deviceId=09756982-154d-43f9-bffa-c820b3a8e1fe
+GET http://localhost:3005/api/v1/deviceProfile?deviceId=09756982-154d-43f9-bffa-c820b3a8e1fe
 Authorization: ApiKey-v1 {{$dotenv DEVICE_API_KEY}}
 
 ### Find a device profile as Web client.
-GET http://localhost:3002/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
+GET http://localhost:3005/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Update a device profile.
-PUT http://localhost:3002/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
+PUT http://localhost:3005/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
@@ -41,5 +41,5 @@ content-type: application/json
 }
 
 ### Delete a device profile.
-DELETE http://localhost:3002/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
+DELETE http://localhost:3005/api/v1/deviceProfile/7474d0d5-9331-4d6f-93e8-3c01c9052735
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}

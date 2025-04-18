@@ -1,9 +1,9 @@
 ### Find all LightScenes.
-GET http://localhost:3002/api/v1/lightScenes
+GET http://localhost:3005/api/v1/lightScenes
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Create a new LightScene.
-POST http://localhost:3002/api/v1/lightScene
+POST http://localhost:3005/api/v1/lightScene
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
@@ -17,11 +17,11 @@ content-type: application/json
 }
 
 ### Find a specific LightScene.
-GET http://localhost:3002/api/v1/lightScene/2b7ec21b-bf4f-497f-8362-c6d7ad1fb248
+GET http://localhost:3005/api/v1/lightScene/2b7ec21b-bf4f-497f-8362-c6d7ad1fb248
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Update a LightScene.
-PUT http://localhost:3002/api/v1/lightScene/2b7ec21b-bf4f-497f-8362-c6d7ad1fb248
+PUT http://localhost:3005/api/v1/lightScene/2b7ec21b-bf4f-497f-8362-c6d7ad1fb248
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
@@ -32,5 +32,5 @@ content-type: application/json
 }
 
 ### Delete a LightScene.
-DELETE http://localhost:3002/api/v1/lightScene/2b7ec21b-bf4f-497f-8362-c6d7ad1fb248
+DELETE http://localhost:3005/api/v1/lightScene/2b7ec21b-bf4f-497f-8362-c6d7ad1fb248
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}

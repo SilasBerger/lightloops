@@ -1,6 +1,6 @@
 {
     "server": {
-        "url": "http://localhost:3002",
+        "url": "http://localhost:3005",
         "apiKey": "device_api_key_1234"
     },
     "wlan": {

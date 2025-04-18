@@ -1,9 +1,9 @@
 ### Get current server settings.
-GET http://localhost:3002/api/v1/serverState
+GET http://localhost:3005/api/v1/serverState
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 
 ### Update server settings (no changes).
-POST http://localhost:3002/api/v1/serverState
+POST http://localhost:3005/api/v1/serverState
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
@@ -12,7 +12,7 @@ content-type: application/json
 }
 
 ### Update server settings (change current profile).
-POST http://localhost:3002/api/v1/serverState
+POST http://localhost:3005/api/v1/serverState
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
 content-type: application/json
 
