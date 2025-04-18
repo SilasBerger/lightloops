@@ -3,6 +3,10 @@ import neopixel
 import time
 
 
+LED_COUNT = 30
+DATA_PIN = 4
+
+
 strip = neopixel.NeoPixel(Pin(DATA_PIN), LED_COUNT, bpp=3)  # bpp=4 for RGBW, 3 for RGB
 
 
