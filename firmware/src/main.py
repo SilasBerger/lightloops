@@ -3,6 +3,7 @@ import sys
 import wlan
 import api
 from api import api, init as init_api
+from error_handler import ErrorHandler
 
 
 def read_config():
@@ -35,7 +36,7 @@ def perform_handshake():
 def connect_wlan(wlan_config):
     error = wlan.connect(wlan_config)
     if error:
-        print(e)  # TODO: ErrorHandler.log_and_exit(error) -> writes to error.log and sys.exit(1)
+        ErrorHandler.log_error_and_exit(error)
     # TODO: Establish Socket.io connection.
 
 
