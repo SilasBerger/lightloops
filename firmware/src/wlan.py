@@ -8,21 +8,16 @@ def _setup():
     return wlan
 
 
-def _try_connect(wlan, config):
-    wlan.connect(config["ssid"], config["password"])
-    return wlan.isconnected()
-
-
-def connect(wlan_config, max_retries = 3, retry_delay = 1):
+def connect(wlan_config, max_retries = 10, retry_delay = 2):
     wlan = _setup()
+    wlan.connect(wlan_config["ssid"], wlan_config["password"])
     
     for i in range(max_retries):
-        connected = _try_connect(wlan, wlan_config)
-        if connected:
+        if wlan.isconnected():
             print("WLAN connected.")
             return True
         
-        print(f"Connection failed. Retry: {i+1}/{max_retries}.")
+        print(f"WLAN not yet connected. Try: {i+1}/{max_retries}.")
         time.sleep(retry_delay)
 
 
