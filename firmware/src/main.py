@@ -1,6 +1,7 @@
 import json
 import sys
 import wlan
+from api import Api
 
 
 def read_config():
@@ -26,6 +27,7 @@ def main():
     device_id = read_device_id()
     print(f"Device ID: {device_id}")
     wlan.connect(config["wlan"])
-
+    api = Api(device_id, config["api"], config["device"] if "device" in config else {})
+    api.register_device()
 
 main()

@@ -1,7 +1,11 @@
 {
+    "device": {
+        "name": "Some device name [optional]",
+        "description": "Some description [optional]"
+    },
     "server": {
-        "url": "http://localhost:3005",
-        "apiKey": "device_api_key_1234"
+        "api_base_url": "http://<SERVER_IP>:3005/api/v1/",
+        "api_key": "device_api_key_1234"
     },
     "wlan": {
         "ssid": "FBI Surveillance Van",
