@@ -5,7 +5,7 @@ import json
 class ErrorHandler:
 
     MAX_ERROR_LOG_ENTRIES = 10
-    ERROR_LOG_PATH = "error.log"
+    ERROR_LOG_PATH = "error.log.json"
 
     @staticmethod
     def _write_to_error_log(msg):

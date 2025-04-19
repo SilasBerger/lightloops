@@ -237,6 +237,25 @@ class DevCommand(Command):
             check=True
         )
 
+
+class ReadErrorLogCommand(Command):
+    name = "read-error-log"
+    description = "Read the error log on the device."
+
+    def handle(self):
+        try:
+            result = json.loads(subprocess.run(
+                [MPREMOTE, "fs", "cat", ":error.log.json"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip())
+
+            for index, log_line in enumerate(result):
+                self.line(f"Entry {index + 1}: <error>{log_line}</error>")
+        except Exception as e:
+            self.line("<comment>No error log found.</comment>")
+
         
 application = Application()
 application.add(InstallCommand())
@@ -246,6 +265,7 @@ application.add(WriteDeviceIdCommand())
 application.add(ReadConfigCommand())
 application.add(WriteConfigCommand())
 application.add(DevCommand())
+application.add(ReadErrorLogCommand())
 
 
 if __name__ == "__main__":
