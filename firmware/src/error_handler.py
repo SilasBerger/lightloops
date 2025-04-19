@@ -26,4 +26,5 @@ class ErrorHandler:
     @staticmethod
     def log_error_and_exit(error_msg):
         ErrorHandler._write_to_error_log(error_msg)
+        # TODO: Set LED strip to static red to show error state.
         sys.exit(1)

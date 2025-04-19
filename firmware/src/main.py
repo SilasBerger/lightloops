@@ -26,30 +26,32 @@ def read_device_id():
 
 def perform_handshake():
     reg_response = api().register_device()
-    print(reg_response)  # TODO: Delete this.
     if reg_response.get_status_code() == 200:
         print("Device successfully registered with API.")
     else:
-        print(f"Failed to register device with API: {str(reg_response)}")  # TODO: ErrorHandler.log_and_exit(...) -> writes to error.log and sys.exit(1)
+        ErrorHandler.log_and_exit(f"Failed to register device with API: {str(reg_response)}")
+    # TODO: Establish Socket.io connection.
+    print("Handshake complete.")
 
 
 def connect_wlan(wlan_config):
     error = wlan.connect(wlan_config)
     if error:
         ErrorHandler.log_error_and_exit(error)
-    # TODO: Establish Socket.io connection.
 
 
 def main():
+    # TODO: Set LED strip to flashing blue to show init state.
     config = read_config()
     device_id = read_device_id()
     print(f"Device ID: {device_id}")
     connect_wlan(config["wlan"])
     init_api(device_id, config["api"], config["device"] if "device" in config else {})
     perform_handshake()
+    # TODO: Set LED strip to static green for 3-5s to show ready state.
 
 
 try:
     main()
 except Exception as e:
-    print(e) # TODO: ErrorHandler.log_and_exit(f"Unknown error occurred: {str(e)}") -> writes to error.log and sys.exit(1)
+    ErrorHandler.log_error_and_exit(f"Unknown error occurred: {str(e)}")
