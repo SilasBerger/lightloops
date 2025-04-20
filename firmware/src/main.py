@@ -2,8 +2,10 @@ import json
 import sys
 import wlan
 import api
+import asyncio
 from api import api, init as init_api
 from error_handler import ErrorHandler
+from ws import AsyncWebsocketClient
 
 
 def read_config():
@@ -40,6 +42,27 @@ def connect_wlan(wlan_config):
         ErrorHandler.log_error_and_exit(error)
 
 
+def handle_event(event):
+    print(event)
+
+
+async def observe_websocket_events(api_config):
+    ws = AsyncWebsocketClient()
+
+    websocket_uri = f"ws://{api_config["host"]}:{api_config["port"]}{api_config["ws_path"]}"
+
+    # websocket_uri = "ws://192.168.0.203:3005/ws"
+    print(f"Connecting to WebSocket server: {websocket_uri}")
+    if not await ws.handshake(websocket_uri):
+        raise Exception("An error occurred during WebSocket handshake")
+    print("WebSocket handshake successful!")
+
+    while await ws.open():
+        event = json.loads(await ws.recv())
+        print(event)
+        handle_event(event)
+
+
 def main():
     # TODO: Set LED strip to flashing blue to show init state.
     config = read_config()
@@ -48,8 +71,9 @@ def main():
     connect_wlan(config["wlan"])
     init_api(device_id, config["api"], config["device"] if "device" in config else {})
     perform_handshake()
-    # TODO: Set LED strip to static green for 3-5s to show ready state.
-    print(api().get_device_profile())
+    # TODO: Set LED strip to static green for 1-3s to show ready state.
+    print(api().get_device_profile())  # TODO: Send this to the lighting engine.
+    asyncio.run(observe_websocket_events(config["api"]))
 
 
 try:

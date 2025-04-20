@@ -42,7 +42,7 @@ class _Api():
 
     def __init__(self, device_id, api_config, device_config = {}):
         self._device_id = device_id
-        self._base_url = api_config["base_url"]
+        self._base_url = f"http://{api_config["host"]}:{api_config["port"]}{api_config["base_path"]}"
         self._api_key = api_config["key"]
         self._name = device_config["name"] if "name" in device_config else self._device_id
         self._description = device_config["description"] if "description" in device_config else None
