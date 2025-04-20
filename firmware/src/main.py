@@ -49,6 +49,7 @@ def main():
     init_api(device_id, config["api"], config["device"] if "device" in config else {})
     perform_handshake()
     # TODO: Set LED strip to static green for 3-5s to show ready state.
+    print(api().get_device_profile())
 
 
 try:

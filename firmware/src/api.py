@@ -3,6 +3,7 @@ import json
 
 
 _EP_DEVICE = "/device"
+_EP_DEVICE_PROFILE = "/deviceProfile"
 
 
 _instance = None
@@ -46,22 +47,32 @@ class _Api():
         self._name = device_config["name"] if "name" in device_config else self._device_id
         self._description = device_config["description"] if "description" in device_config else None
 
-    def _default_headers(self):
-        return {
+    def _default_headers(self, is_json_content):
+        headers = {
             "Authorization": f"ApiKey-v1 {self._api_key}",
-            "content-type": "application/json"
         }
+
+        if is_json_content:
+            headers["content-type"] = "application/json"
+
+        return headers
     
-    def _request(self, method, endpoint, data_dict = None, headers_override = None):
+    def _request(self, method, endpoint, data_dict = None, params = None, headers_override = None):
+        url = self._base_url + endpoint 
+        url = url + "?" + "&".join(params) if params else url
+
         return Response(urequests.request(
             method,
-            self._base_url + endpoint,
+            url,
             data = json.dumps(data_dict),
-            headers = self._default_headers() if headers_override is None else headers_override
+            headers = self._default_headers(data_dict is not None) if headers_override is None else headers_override
         ))
     
-    def _post(self, endpoint, data_dict = None, headers_override = None):
-        return self._request("POST", endpoint, data_dict, headers_override)
+    def _post(self, endpoint, data_dict = None, params = None, headers_override = None):
+        return self._request("POST", endpoint, data_dict, params, headers_override)
+    
+    def _get(self, endpoint, data_dict = None, params = None, headers_override = None):
+        return self._request("GET", endpoint, data_dict, params, headers_override)
 
     def register_device(self):
         return self._post(
@@ -72,6 +83,9 @@ class _Api():
                 "description": self._description
             }
         )
+    
+    def get_device_profile(self):
+        return self._get(_EP_DEVICE_PROFILE, params = [f"deviceId={self._device_id}"])
     
     def log_to_api(self, msg):
         raise NotImplementedError("Api.log_to_api(msg) is not yet implemented.")
