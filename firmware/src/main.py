@@ -52,14 +52,15 @@ def handle_ws_message(msg):
 
     if event == 'error':
         raise Exception(f"Error received from WebSocket: {data}")
+    else:
+        print(msg)
 
 
 
 async def observe_websocket_events(device_id, api_config):
     ws = AsyncWebsocketClient()
 
-    # websocket_uri = f"ws://{api_config["host"]}:{api_config["port"]}{api_config["ws_path"]}&deviceId={device_id}"
-    websocket_uri = f"ws://{api_config["host"]}:{api_config["port"]}{api_config["ws_path"]}?deviceId={device_id}"
+    websocket_uri = f"ws://{api_config["host"]}:{api_config["port"]}{api_config["ws_path"]}?deviceId={device_id}&apiKey={api_config["key"]}"
 
     print(f"Connecting to WebSocket server: {websocket_uri}")
     if not await ws.handshake(websocket_uri):
@@ -68,7 +69,6 @@ async def observe_websocket_events(device_id, api_config):
 
     while await ws.open():
         event = json.loads(await ws.recv())
-        print(event)
         handle_ws_message(event)
 
 
