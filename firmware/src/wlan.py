@@ -25,4 +25,4 @@ def connect(wlan_config, max_retries = 10, retry_delay = 2):
         print("WLAN connection failed, check configuration.")
         return f"WLAN not connected after {max_retries} tries."
     except Exception as e:
-        return f"WLAN connection failed with exception: {str(e)}"
+        return e

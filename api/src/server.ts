@@ -3,9 +3,11 @@ import Logger from './utils/logger';
 import http from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import expressWs, { Application } from 'express-ws';
+import prisma from './prisma';
 
 const PORT = process.env.PORT || 3002;
 const APP_URI = new URL(process.env.APP_DOMAIN || `http://localhost`);
+const DEVICE_API_KEY = process.env.DEVICE_API_KEY || '';
 APP_URI.port = `${PORT}`;
 const WS_URI = `ws://${APP_URI.host}/ws`;
 const server = http.createServer(app);
@@ -35,8 +37,31 @@ io.on('connection', (socket) => {
     });
 });
 
-(app as unknown as Application).ws('/ws', (ws, req) => {
+(app as unknown as Application).ws('/ws', async (ws, req) => {
     Logger.info('New WebSocket connection established');
+    
+    const apiKey = req.query['deviceId']
+    if (apiKey !== DEVICE_API_KEY) {
+        const msg = 'Rejecting WebSocket connection: either no apiKey provided in query params, or key does not match DEVICE_API_KEY.';
+        Logger.info(msg);
+        ws.send(JSON.stringify({event: 'error', data: msg}))
+        ws.close();
+        return;
+    }
+
+    const deviceId = req.query['deviceId']
+    if (!deviceId) {
+        Logger.info('Rejecting WebSocket connection: no deviceId provided in query params.');
+        ws.close();
+        return;
+    }
+
+    const device = await prisma.device.findUnique({ where: { id: deviceId as string } });
+    if (!device) {
+        Logger.info(`Rejecting WebSocket connection: No registered device with id '${deviceId}'`);
+        ws.close();
+        return;
+    }
 
     ws.on('message', (message) => {
         Logger.info({ event: 'Raw WebSocket message', data: message });

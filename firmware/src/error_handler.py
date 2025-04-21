@@ -1,5 +1,7 @@
 import sys
 import json
+import sys
+from uio import StringIO
 
 
 class ErrorHandler:
@@ -24,8 +26,14 @@ class ErrorHandler:
             json.dump(log_data, outfile)
 
     @staticmethod
-    def log_error_and_exit(error_msg):
-        print(error_msg)
-        ErrorHandler._write_to_error_log(error_msg)
+    def log_error_and_exit(error_msg, exception = None):
+        msg = error_msg
+        if exception:
+            s = StringIO()
+            sys.print_exception(exception, s)  # Redirect output to StringIO
+            traceback_str = s.getvalue()
+            msg = f"{error_msg}\n\n{traceback_str}"
+        print(msg)
+        ErrorHandler._write_to_error_log(msg)
         # TODO: Set LED strip to static red to show error state.
         sys.exit(1)

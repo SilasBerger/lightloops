@@ -31,27 +31,36 @@ def perform_handshake():
     if reg_response.get_status_code() == 200:
         print("Device successfully registered with API.")
     else:
-        ErrorHandler.log_and_exit(f"Failed to register device with API: {str(reg_response)}")
-    # TODO: Establish Socket.io connection.
+        ErrorHandler.log_error_and_exit(f"Failed to register device with API: {str(reg_response)}")
     print("Handshake complete.")
 
 
 def connect_wlan(wlan_config):
     error = wlan.connect(wlan_config)
     if error:
-        ErrorHandler.log_error_and_exit(error)
+        ErrorHandler.log_error_and_exit("WLAN connection failed.", error)
 
 
-def handle_event(event):
-    print(event)
+def handle_ws_message(msg):
+    try:
+        msg = json.loads(msg)
+    except Exception as e:
+        pass  # API should send proper events. If something goes wrong here, we just ignore it.
+    
+    event = msg['event']
+    data = msg['data']
+
+    if event == 'error':
+        raise Exception(f"Error received from WebSocket: {data}")
 
 
-async def observe_websocket_events(api_config):
+
+async def observe_websocket_events(device_id, api_config):
     ws = AsyncWebsocketClient()
 
-    websocket_uri = f"ws://{api_config["host"]}:{api_config["port"]}{api_config["ws_path"]}"
+    # websocket_uri = f"ws://{api_config["host"]}:{api_config["port"]}{api_config["ws_path"]}&deviceId={device_id}"
+    websocket_uri = f"ws://{api_config["host"]}:{api_config["port"]}{api_config["ws_path"]}?deviceId={device_id}"
 
-    # websocket_uri = "ws://192.168.0.203:3005/ws"
     print(f"Connecting to WebSocket server: {websocket_uri}")
     if not await ws.handshake(websocket_uri):
         raise Exception("An error occurred during WebSocket handshake")
@@ -60,10 +69,10 @@ async def observe_websocket_events(api_config):
     while await ws.open():
         event = json.loads(await ws.recv())
         print(event)
-        handle_event(event)
+        handle_ws_message(event)
 
 
-def main():
+async def main():
     # TODO: Set LED strip to flashing blue to show init state.
     config = read_config()
     device_id = read_device_id()
@@ -73,10 +82,11 @@ def main():
     perform_handshake()
     # TODO: Set LED strip to static green for 1-3s to show ready state.
     print(api().get_device_profile())  # TODO: Send this to the lighting engine.
-    asyncio.run(observe_websocket_events(config["api"]))
+    await observe_websocket_events(device_id, config["api"])
+    # TODO: When this returns, the WS connection is closed. Either re-open or go to error state (red LEDs).
 
 
 try:
-    main()
+    asyncio.run(main())
 except Exception as e:
-    ErrorHandler.log_error_and_exit(f"Unknown error occurred: {str(e)}")
+    ErrorHandler.log_error_and_exit(f"Unexpected error occurred.", e)
