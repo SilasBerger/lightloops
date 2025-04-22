@@ -3,6 +3,7 @@ import Logger from '../utils/logger';
 import { ClientToServerEvents, ServerToClientEvents } from './socketEventTypes';
 import prisma from '../prisma';
 import { ClientRole, getClientRoleFrom } from './authConfig';
+import { serverState, updateServerState } from '../serverState';
 
 export enum IoRoom {
     WEB = 'web',
@@ -44,6 +45,8 @@ const EventRouter = (io: Server<ClientToServerEvents, ServerToClientEvents>) => 
             }
 
             socket.join(deviceId);
+            // TOOD: Update store with newly connected deviceId.
+            // TODO: Notify web with latest connected devices.
         } else {
             Logger.info('Socket.io request did not provide a valid API key: disconnecting.');
             return socket.disconnect();
@@ -61,6 +64,8 @@ const EventRouter = (io: Server<ClientToServerEvents, ServerToClientEvents>) => 
             Logger.info('Socket.io web client disconnected.');
         } else {
             Logger.info(`Socket.io device client (deviceId: '${deviceId}') disconnected.`);
+            // TOOD: Update store with newly disconnected deviceId.
+            // TODO: Notify web with latest connected devices.
         }
     });
 
@@ -73,6 +78,7 @@ const EventRouter = (io: Server<ClientToServerEvents, ServerToClientEvents>) => 
         if (clientRole == ClientRole.WEB) {
             Logger.info('Socket.io web client reconnected.');
         } else {
+            // TODO: Do we need to re-add the device as connected? Check Socket.io lifecycle docs.
             Logger.info(`Socket.io device client (deviceId: '${deviceId}') reconnected.`);
         }
     });
