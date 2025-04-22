@@ -25,6 +25,7 @@ app.use(
 
 app.use(express.json({ limit: '5mb' }));
 
+// TODO: Consider supporting a clientId header for web client instance identification -> improved support for toSelf: false on io events.
 const extractClientRole = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
     const authHeaderParts = (authHeader && authHeader.split(' ')) || [];
