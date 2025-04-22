@@ -18,7 +18,7 @@ export const getClientRoleFrom = (apiKey?: string) => {
     } else {
         return undefined;
     }
-}
+};
 
 export interface AccessMatrix {
     [key: string]: {

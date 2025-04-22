@@ -1,20 +1,20 @@
-import { ApiDevice } from "../models/Device";
-import { WebApiDeviceProfile } from "../models/DeviceProfiles";
-import { ApiLightScene } from "../models/LightScene";
-import { ApiProfile } from "../models/Profile";
+import { ApiDevice } from '../models/Device';
+import { WebApiDeviceProfile } from '../models/DeviceProfiles';
+import { ApiLightScene } from '../models/LightScene';
+import { ApiProfile } from '../models/Profile';
 
 export enum IoEvent {
     NEW_RECORD = 'NEW_RECORD',
     CHANGED_RECORD = 'CHANGED_RECORD',
     DELETED_RECORD = 'DELETED_RECORD',
-    CONNECTED_CLIENTS = 'CONNECTED_CLIENTS'
+    CONNECTED_CLIENTS = 'CONNECTED_CLIENTS',
 }
 
 export enum RecordType {
     Device = 'Document',
-    Profile = "Profile",
-    LightScene = "LightScene",
-    DeviceProfile = "DeviceProfile",
+    Profile = 'Profile',
+    LightScene = 'LightScene',
+    DeviceProfile = 'DeviceProfile',
 }
 
 type TypeRecordMap = {
@@ -64,17 +64,14 @@ interface NotificationDeletedRecord extends NotificationBase {
     message: DeletedRecord;
 }
 
-export type Notification =
-    | NotificationNewRecord
-    | NotificationChangedRecord
-    | NotificationDeletedRecord
+export type Notification = NotificationNewRecord | NotificationChangedRecord | NotificationDeletedRecord;
 
 /**
  * client side initiated events
  */
 export enum IoClientEvent {
     JOIN_ROOM = 'JOIN_ROOM',
-    LEAVE_ROOM = 'LEAVE_ROOM'
+    LEAVE_ROOM = 'LEAVE_ROOM',
 }
 
 export type ServerToClientEvents = {

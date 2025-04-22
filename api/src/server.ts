@@ -5,7 +5,7 @@ import { Socket, Server as SocketIOServer } from 'socket.io';
 import expressWs, { Application } from 'express-ws';
 import WebSocket from 'ws';
 import prisma from './prisma';
-import {NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import EventRouter from './routes/socketEvents';
 
 const PORT = process.env.PORT || 3002;
@@ -28,7 +28,7 @@ const io = new SocketIOServer(server, {
 
 EventRouter(io);
 
-// TODO: 
+// TODO:
 /*
 1. Handle getting the apiKey right here if possible (either from header or from query param).
 2. 
@@ -51,20 +51,23 @@ configure(app);
 
 const rejectWsConnection = (msg: string, ws: WebSocket.WebSocket) => {
     Logger.info(msg);
-    ws.send(JSON.stringify({event: 'error', data: msg}))
+    ws.send(JSON.stringify({ event: 'error', data: msg }));
     ws.close();
-}
+};
 
 (app as unknown as Application).ws('/ws', async (ws, req) => {
     Logger.info('New WebSocket connection established');
-    
-    const apiKey = req.query['apiKey']
+
+    const apiKey = req.query['apiKey'];
     if (apiKey !== DEVICE_API_KEY) {
-        rejectWsConnection('Rejecting WebSocket connection: either no apiKey provided in query params, or key does not match DEVICE_API_KEY.', ws);
+        rejectWsConnection(
+            'Rejecting WebSocket connection: either no apiKey provided in query params, or key does not match DEVICE_API_KEY.',
+            ws
+        );
         return;
     }
 
-    const deviceId = req.query['deviceId']
+    const deviceId = req.query['deviceId'];
     if (!deviceId) {
         rejectWsConnection('Rejecting WebSocket connection: no deviceId provided in query params.', ws);
         return;

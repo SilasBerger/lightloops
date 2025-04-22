@@ -17,8 +17,8 @@ export const ensureExists: RequestHandler = async (req, res, next) => {
                         type: RecordType.Device,
                         record: device,
                     },
-                    to: [IoRoom.WEB]
-                }
+                    to: [IoRoom.WEB],
+                },
             ];
         }
 

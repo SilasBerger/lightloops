@@ -30,7 +30,7 @@ const extractClientRole = (req: Request, res: Response, next: NextFunction) => {
     const authHeaderParts = (authHeader && authHeader.split(' ')) || [];
     authHeaderParts.shift();
     const apiKey = authHeaderParts.join(' ');
-    
+
     req.clientRole = getClientRoleFrom(apiKey);
 
     next();
@@ -52,7 +52,7 @@ export const configure = (_app: typeof app) => {
                 return;
             }
             const io = req.io as Server<ClientToServerEvents, ServerToClientEvents>;
-    
+
             if (res.notifications && io) {
                 res.notifications.forEach((notification) => {
                     Logger.info(notification);
@@ -72,7 +72,7 @@ export const configure = (_app: typeof app) => {
         });
         next();
     });
-    
+
     _app.use(
         API_URL,
         extractClientRole, // middleware to extract client role from auth header
@@ -81,7 +81,6 @@ export const configure = (_app: typeof app) => {
     );
 
     loadDefaultServerState().then();
-}
-
+};
 
 export default app;

@@ -10,16 +10,16 @@ export enum IoRoom {
     ALL = 'all',
 }
 
-interface SocketRequestInfo { 
-    deviceId?: string,
-    clientRole?: ClientRole
+interface SocketRequestInfo {
+    deviceId?: string;
+    clientRole?: ClientRole;
 }
 
 const extractSocketRequestInfo: (socket: Socket) => SocketRequestInfo = (socket: Socket) => {
     const query = (socket.request as any)?._query || {};
     const clientRole = getClientRoleFrom(query['apiKey']);
     const deviceId = query['deviceId'];
-    return {clientRole, deviceId};
+    return { clientRole, deviceId };
 };
 
 const EventRouter = (io: Server<ClientToServerEvents, ServerToClientEvents>) => {
@@ -37,7 +37,9 @@ const EventRouter = (io: Server<ClientToServerEvents, ServerToClientEvents>) => 
 
             prisma.device.findUnique({ where: { id: deviceId } });
             if (!deviceId) {
-                Logger.info('Device Socket.io request provided a device ID for an unregistered device: disconnecting.');
+                Logger.info(
+                    'Device Socket.io request provided a device ID for an unregistered device: disconnecting.'
+                );
                 return socket.disconnect();
             }
 
@@ -48,7 +50,9 @@ const EventRouter = (io: Server<ClientToServerEvents, ServerToClientEvents>) => 
         }
 
         socket.join(IoRoom.ALL);
-        Logger.info(`Socket with id ${socket.id} and clientRole '${clientRole}' (deviceId: ${deviceId}) connected.`)
+        Logger.info(
+            `Socket with id ${socket.id} and clientRole '${clientRole}' (deviceId: ${deviceId}) connected.`
+        );
     });
 
     io.on('disconnect', (socket) => {
@@ -72,6 +76,6 @@ const EventRouter = (io: Server<ClientToServerEvents, ServerToClientEvents>) => 
             Logger.info(`Socket.io device client (deviceId: '${deviceId}') reconnected.`);
         }
     });
-}
+};
 
 export default EventRouter;
