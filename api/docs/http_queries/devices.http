@@ -36,6 +36,6 @@ Authorization: ApiKey-v1 {{$dotenv DEVICE_API_KEY}}
 content-type: application/json
 
 {
-    "id": "ee1fd87c-28b4-4b55-b7e7-7d4a968cc7cd",
-    "name": "Demo for Socket.io 2"
+    "id": "76872e9e-370b-4a58-96ed-faa741e8c6b2",
+    "name": "daa64123-06c4-4623-b60a-f4c6b3f2b5dc"
 }

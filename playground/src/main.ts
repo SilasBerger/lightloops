@@ -3,7 +3,6 @@ import { io } from 'socket.io-client';
 export enum IoEvent {
     NEW_RECORD = 'NEW_RECORD',
     CHANGED_RECORD = 'CHANGED_RECORD',
-    NEW_OR_CHANGED_RECORD = 'NEW_OR_CHANGED_RECORD',
     DELETED_RECORD = 'DELETED_RECORD',
     CONNECTED_CLIENTS = 'CONNECTED_CLIENTS'
 }
@@ -26,6 +25,6 @@ socket.on('connect_error', (error) => {
     }
 });
 
-socket.on(IoEvent.NEW_OR_CHANGED_RECORD, (data) => {
+socket.on(IoEvent.NEW_RECORD, (data) => {
     console.log(data);
 });

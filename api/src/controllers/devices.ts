@@ -7,24 +7,20 @@ export const ensureExists: RequestHandler = async (req, res, next) => {
     const { id, name, description } = req.body;
     try {
         let device = await Device.findModel(id);
-        let isNew = false;
 
         if (!device) {
             device = await Device.createModel(id, name, description);
-            isNew = true;
+            res.notifications = [
+                {
+                    event: IoEvent.NEW_RECORD,
+                    message: {
+                        type: RecordType.Device,
+                        record: device,
+                    },
+                    to: [IoRoom.WEB]
+                }
+            ];
         }
-
-        res.notifications = [
-            {
-                event: IoEvent.NEW_OR_CHANGED_RECORD,
-                message: {
-                    type: RecordType.Device,
-                    isNew: isNew,
-                    record: device,
-                },
-                to: [IoRoom.WEB]
-            }
-        ];
 
         res.status(200).json(device);
     } catch (error) {

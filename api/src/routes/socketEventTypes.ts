@@ -6,7 +6,6 @@ import { ApiProfile } from "../models/Profile";
 export enum IoEvent {
     NEW_RECORD = 'NEW_RECORD',
     CHANGED_RECORD = 'CHANGED_RECORD',
-    NEW_OR_CHANGED_RECORD = 'NEW_OR_CHANGED_RECORD',
     DELETED_RECORD = 'DELETED_RECORD',
     CONNECTED_CLIENTS = 'CONNECTED_CLIENTS'
 }
@@ -35,12 +34,6 @@ export interface ChangedRecord<T extends RecordType> {
     record: TypeRecordMap[T];
 }
 
-export interface NewOrChangedRecord<T extends RecordType> {
-    type: T;
-    isNew: boolean;
-    record: TypeRecordMap[T];
-}
-
 export interface ConnectedClients {
     rooms: [string, number][];
     type: 'full' | 'update';
@@ -66,11 +59,6 @@ interface NotificationChangedRecord extends NotificationBase {
     message: ChangedRecord<RecordType>;
 }
 
-interface NotificationNewOrChangedRecord extends NotificationBase {
-    event: IoEvent.NEW_OR_CHANGED_RECORD;
-    message: NewOrChangedRecord<RecordType>;
-}
-
 interface NotificationDeletedRecord extends NotificationBase {
     event: IoEvent.DELETED_RECORD;
     message: DeletedRecord;
@@ -79,7 +67,6 @@ interface NotificationDeletedRecord extends NotificationBase {
 export type Notification =
     | NotificationNewRecord
     | NotificationChangedRecord
-    | NotificationNewOrChangedRecord
     | NotificationDeletedRecord
 
 /**
@@ -93,7 +80,6 @@ export enum IoClientEvent {
 export type ServerToClientEvents = {
     [IoEvent.NEW_RECORD]: (message: NewRecord<RecordType>) => void;
     [IoEvent.CHANGED_RECORD]: (message: ChangedRecord<RecordType>) => void;
-    [IoEvent.NEW_OR_CHANGED_RECORD]: (message: NewOrChangedRecord<RecordType>) => void;
     [IoEvent.DELETED_RECORD]: (message: DeletedRecord) => void;
     [IoEvent.CONNECTED_CLIENTS]: (message: ConnectedClients) => void;
 };
