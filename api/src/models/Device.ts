@@ -5,6 +5,8 @@ import { createDataExtractor } from '../helpers/dataExtractor';
 
 const extractUpdateData = createDataExtractor<Prisma.DeviceUncheckedUpdateInput>(['name', 'description']);
 
+export type ApiDevice = DbDevice;
+
 function Device(db: PrismaClient['device']) {
     return Object.assign(db, {
         async createModel(id: string, name: string, description?: string): Promise<DbDevice> {

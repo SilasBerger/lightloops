@@ -15,7 +15,7 @@ const extractUpdateData = createDataExtractor<Prisma.DeviceProfileUncheckedUpdat
     'lightSceneId',
 ]);
 
-interface WebApiDeviceProfile {
+export interface WebApiDeviceProfile {
     id: string;
     device: DbDevice;
     profileId: string;
@@ -23,7 +23,7 @@ interface WebApiDeviceProfile {
     lightScene: DbLightScene | null;
 }
 
-interface DeviceApiDeviceProfile {
+export interface DeviceApiDeviceProfile {
     lightScene: DbLightScene | null;
 }
 

@@ -2,6 +2,8 @@ import { PrismaClient, LightScene as DbLightScene } from '@prisma/client';
 import prisma from '../prisma';
 import { HTTP400Error } from '../utils/errors/Errors';
 
+export type ApiLightScene = DbLightScene;
+
 function LightScene(db: PrismaClient['lightScene']) {
     return Object.assign(db, {
         async createModel(

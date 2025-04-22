@@ -3,6 +3,8 @@ import prisma from '../prisma';
 import { HTTP404Error } from '../utils/errors/Errors';
 import { createDataExtractor } from '../helpers/dataExtractor';
 
+export type ApiProfile = DbProfile;
+
 const extractUpdateData = createDataExtractor<Prisma.ProfileUncheckedUpdateInput>(['name', 'description']);
 
 function Profile(db: PrismaClient['profile']) {

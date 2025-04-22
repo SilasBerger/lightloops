@@ -7,6 +7,12 @@ declare global {
     namespace Express {
         export interface Request {
             clientRole?: ClientRole;
+            deviceId?: string;
+            io?: Server<ClientToServerEvents, ServerToClientEvents>;
+        }
+
+        export interface Response {
+            notifications?: Notification[];
         }
     }
 }

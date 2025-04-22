@@ -29,3 +29,13 @@ content-type: application/json
 ### Delete a device.
 DELETE http://localhost:3005/api/v1/device/3c2c7960-afef-4836-9a15-8312b3cfaa84
 Authorization: ApiKey-v1 {{$dotenv WEB_API_KEY}}
+
+### Test
+POST http://localhost:3005/api/v1/device
+Authorization: ApiKey-v1 {{$dotenv DEVICE_API_KEY}}
+content-type: application/json
+
+{
+    "id": "ee1fd87c-28b4-4b55-b7e7-7d4a968cc7cd",
+    "name": "Demo for Socket.io 2"
+}

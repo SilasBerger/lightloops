@@ -10,6 +10,16 @@ export enum ClientRole {
     DEVICE = 'device',
 }
 
+export const getClientRoleFrom = (apiKey?: string) => {
+    if (apiKey === authConfig.credentials.webApiKey) {
+        return ClientRole.WEB;
+    } else if (apiKey === authConfig.credentials.deviceApiKey) {
+        return ClientRole.DEVICE;
+    } else {
+        return undefined;
+    }
+}
+
 export interface AccessMatrix {
     [key: string]: {
         path: string;
