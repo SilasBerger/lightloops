@@ -1,0 +1,1 @@
+FROM espressif/idf-rust:all_1.86.0.0
