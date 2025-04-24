@@ -22,6 +22,10 @@ _Reference: https://docs.esp-rs.org/book/installation/using-containers.html_
 
 In here, you can run `cargo build`, but `cargo run` won't work.
 
+### Option 3: Podman container
+_Reference: https://github.com/esp-rs/rust-build?tab=readme-ov-file#using-containers_
+TBD.
+
 ## Usage
 After setting up the development environment, make sure you have run `source ~/export-esp.sh` in your current terminal.
 
