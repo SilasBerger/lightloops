@@ -46,9 +46,8 @@ class LedEngine:
         else:
             return None
 
-    async def _do_the_thing(self, intervals, vars):
+    async def _execute_intervals(self, intervals, vars):
         for interval in intervals:
-            print(f"Interval: {interval}")
             colors = LedEngine._resolve_colors(interval["colors"], vars)
             duration= LedEngine._resolve_duration(interval.get("duration", None), vars)
             await self._display_pattern(colors)
@@ -58,12 +57,12 @@ class LedEngine:
             
         self._current_task = None
 
-    async def _run_intervals(self, intervals, vars):
+    async def _run_once_or_loop(self, intervals, vars):
         if vars["loop"]:
             while True:
-                await self._do_the_thing(intervals, vars)
+                await self._execute_intervals(intervals, vars)
         else:
-            await self._do_the_thing(intervals, vars)
+            await self._execute_intervals(intervals, vars)
 
     async def _display(self, scene):
         vars = {
@@ -73,9 +72,10 @@ class LedEngine:
             "fade": scene.get("fade", False),
             "loop": scene.get("loop", False),
         }
-        await self._run_intervals(scene["intervals"], vars)
+        await self._run_once_or_loop(scene["intervals"], vars)
 
     def display(self, scene):
+        # TODO: Cancelling the current task does not seem to break the loop. Need to find a way to do this.
         if (self._current_task and not self._current_task.done()):
             self._current_task.cancel()
         self._current_task = asyncio.create_task(self._display(scene))
