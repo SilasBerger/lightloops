@@ -3,22 +3,18 @@ import neopixel
 import asyncio
 
 
-class LedEngine:
-    
-    def __init__(self, led_config):
-        self._strip = neopixel.NeoPixel(Pin(led_config["pin"]), led_config["count"], bpp=3)  # bpp=4 for RGBW, 3 for RGB
-        self._current_task = None
+class LedTask:
 
-    async def _display_pattern(self, led_values):
-        for i in range(len(self._strip)):
-            self._strip[i] = led_values[i % len(led_values)]
-        self._strip.write()
+    def __init__(self, strip):
+        self._strip = strip
+        self._running = False
+        self._async_task = None
 
     @staticmethod
     def _resolve_colors(colors, vars):
         if isinstance(colors, str):
             # Colors is a pattern var. Get the colors list from there and resolve it.
-            return LedEngine._resolve_colors(vars["patterns"][colors], vars)
+            return LedTask._resolve_colors(vars["patterns"][colors], vars)
         elif isinstance(colors, list):
             # Colors is a list of lists.
             resolved_colors = []
@@ -46,10 +42,18 @@ class LedEngine:
         else:
             return None
 
+    async def _display_pattern(self, led_values):
+        for i in range(len(self._strip)):
+            self._strip[i] = led_values[i % len(led_values)]
+        self._strip.write()
+
     async def _execute_intervals(self, intervals, vars):
         for interval in intervals:
-            colors = LedEngine._resolve_colors(interval["colors"], vars)
-            duration= LedEngine._resolve_duration(interval.get("duration", None), vars)
+            if not self._running:
+                break
+
+            colors = LedTask._resolve_colors(interval["colors"], vars)
+            duration= LedTask._resolve_duration(interval.get("duration", None), vars)
             await self._display_pattern(colors)
             if duration is not None:
                 # TODO: Fading...
@@ -59,12 +63,29 @@ class LedEngine:
 
     async def _run_once_or_loop(self, intervals, vars):
         if vars["loop"]:
-            while True:
+            while True and self._running:
                 await self._execute_intervals(intervals, vars)
         else:
             await self._execute_intervals(intervals, vars)
 
-    async def _display(self, scene):
+    def run(self, intervals, vars):
+        self._running = True
+        self._async_task = asyncio.create_task(self._run_once_or_loop(intervals, vars))
+
+    def cancel(self):
+        if self._async_task:
+            self._async_task.cancel()
+            self._async_task = None
+        self._running = False
+
+
+class LedEngine:
+    
+    def __init__(self, led_config):
+        self._strip = neopixel.NeoPixel(Pin(led_config["pin"]), led_config["count"], bpp=3)  # bpp=4 for RGBW, 3 for RGB
+        self._current_task = None
+
+    def _display(self, scene):
         vars = {
             "durations": scene.get("durations", {}),
             "colors": scene.get("colors", {}),
@@ -72,10 +93,10 @@ class LedEngine:
             "fade": scene.get("fade", False),
             "loop": scene.get("loop", False),
         }
-        await self._run_once_or_loop(scene["intervals"], vars)
+        self._current_task = LedTask(self._strip)
+        self._current_task.run(scene["intervals"], vars)
 
     def display(self, scene):
-        # TODO: Cancelling the current task does not seem to break the loop. Need to find a way to do this.
-        if (self._current_task and not self._current_task.done()):
+        if self._current_task:
             self._current_task.cancel()
-        self._current_task = asyncio.create_task(self._display(scene))
+        self._display(scene)
