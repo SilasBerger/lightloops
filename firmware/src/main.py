@@ -3,6 +3,7 @@ import sys
 import wlan
 import api
 import asyncio
+import demo_scenes
 from api import api, init as init_api
 from error_handler import ErrorHandler
 from ws import AsyncWebsocketClient
@@ -73,17 +74,17 @@ async def observe_websocket_events(device_id, api_config):
         handle_ws_message(event)
 
 
-async def try_out_leds(led_engine):
+async def play_demo_scenes(led_engine):
     print("Displaying static scene for 5s...")
-    led_engine.demo_display_static_scene()
+    demo_scenes.static(led_engine)
     await asyncio.sleep(5)
 
     print("Displaying difficult scene for 20s...")
-    led_engine.demo_display_difficult_scene()
+    demo_scenes.complex(led_engine)
     await asyncio.sleep(20)
 
     print("Displaying static scene for 5s again...")
-    led_engine.demo_display_static_scene()
+    demo_scenes.static(led_engine)
     await asyncio.sleep(5)
 
     print("LED demo complete.")
@@ -101,7 +102,7 @@ async def main():
     print(api().get_device_profile())  # TODO: Send this to the lighting engine.
     # TODO: Reactivate. await observe_websocket_events(device_id, config["api"])
     led_engine = LedEngine(config["led"])
-    await try_out_leds(led_engine)
+    await play_demo_scenes(led_engine)
     # TODO: When this returns, the WS connection is closed. Either re-open or go to error state (red LEDs).
 
 
