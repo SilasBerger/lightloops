@@ -75,11 +75,11 @@ async def observe_websocket_events(device_id, api_config):
 
 
 async def play_demo_scenes(led_engine):
-    print("Displaying static scene for 5s...")
-    demo_scenes.static(led_engine)
-    await asyncio.sleep(5)
+    # print("Displaying static scene for 5s...")
+    # demo_scenes.static(led_engine)
+    # await asyncio.sleep(5)
 
-    print("Displaying difficult scene for 20s...")
+    print("Displaying complex scene for 20s...")
     demo_scenes.complex(led_engine)
     await asyncio.sleep(20)
 

@@ -18,7 +18,7 @@ class LedEngine:
     def _resolve_colors(colors, vars):
         if isinstance(colors, str):
             # Colors is a pattern var. Get the colors list from there and resolve it.
-            return LedEngine._resolve_colors(vars["patterns"].get(colors, colors), vars)
+            return LedEngine._resolve_colors(vars["patterns"][colors], vars)
         elif isinstance(colors, list):
             # Colors is a list of lists.
             resolved_colors = []
@@ -39,15 +39,16 @@ class LedEngine:
     def _resolve_duration(duration, vars):
         if isinstance(duration, str):
             # Duration is a variable. Get the duration from the vars.
-            return vars["durations"].get(duration, duration)
+            return vars["durations"][duration] / 1000
         elif isinstance(duration, int):
             # Duration is an int. Return it as is.
-            return duration
+            return duration / 1000
         else:
             return None
 
     async def _do_the_thing(self, intervals, vars):
         for interval in intervals:
+            print(f"Interval: {interval}")
             colors = LedEngine._resolve_colors(interval["colors"], vars)
             duration= LedEngine._resolve_duration(interval.get("duration", None), vars)
             await self._display_pattern(colors)

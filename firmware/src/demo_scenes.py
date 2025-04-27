@@ -1,5 +1,6 @@
 def complex(led_engine):
-    difficult_scene = {
+    scene = {
+        "loop": True,  # Loop the scene.
         "crossfade_duration": 200,  # Shorthand. Acts the same as putting crossfade_duration on every interval.
         "durations": {
             "on": 1000,
@@ -21,7 +22,7 @@ def complex(led_engine):
                 "duration": 'on',
             },
             {
-                "colors": "off",
+                "colors": ["off"],
                 "duration": 'off',
             },
             {
@@ -29,7 +30,7 @@ def complex(led_engine):
                 "duration": 'on',
             },
             {
-                "colors": "off",
+                "colors": ["off"],
                 "duration": 'off',
             },
             {
@@ -37,30 +38,30 @@ def complex(led_engine):
                 "duration": 'on',
             },
             {
-                "colors": "off",
+                "colors": ["off"],
                 "duration": 'off',
             },
             {
                 "colors": ["red", "green", [0, 0, 255]],
-                "duration": "2000"
+                "duration": 2000
             },
                             {
-                "colors": "off",
+                "colors": ["off"],
                 "duration": 1000,
             },
         ],
     }
-    led_engine.display(difficult_scene)
+    led_engine.display(scene)
 
 def static(led_engine):
-    simple_scene = {
+    scene = {
         "intervals": [
             {
                 "colors": [[255, 255, 0]],
             }
         ]
     }
-    led_engine.display(simple_scene)
+    led_engine.display(scene)
 
 def randomized(self):
     pass
